@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, Alert, StatusBar, TouchableOpacity, SafeAreaView, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import { LoginUserStream } from '../Services/Login';
+import { UserLogged } from '../Services/Login';
 
 
 const Login: React.FC = ({ navigation }: any) => {
@@ -8,6 +9,22 @@ const Login: React.FC = ({ navigation }: any) => {
     const [senha, SetSenha] = useState("")
     const [url, SetUrl] = useState("")
     const [Loanding, SetLoading] = useState(false)
+
+
+    useEffect(()=>{
+     const Login = async ()  =>{
+        const user = await UserLogged();
+        SetLoading(true)
+        if(user === true){
+            return  navigation.reset({
+                index:0,
+                routes:[{name:'Tabs'}]
+            })
+        }
+        return SetLoading(false)
+     }
+     Login()
+    })
 
     const BtnLogin = async () => {
         if (usuario === "" || senha === "" || url === "") {
@@ -21,7 +38,10 @@ const Login: React.FC = ({ navigation }: any) => {
             return
         }
         SetLoading(false)
-        navigation.navigate('Home');
+        navigation.reset({
+            index:0,
+            routes:[{name:'Tabs'}]
+        })
     }
 
     if (Loanding === true) {
