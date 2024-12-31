@@ -6,7 +6,7 @@ import { ActivityIndicator, SafeAreaView, StyleSheet } from 'react-native';
 import { UserLogged } from './App/Services/Login';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
+ 
 
 const Stack = createNativeStackNavigator();
 

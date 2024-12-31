@@ -16,7 +16,7 @@ export const LoginUserStream = async (user: any, password: any, url: any, naviga
         if (!response.ok)
             return `HTTP error! Status: ${response.status}`
 
-        const data = await response.json();
+        const data = await response.json(); 
         const userInfo = data.user_info;
         const serverInfo= data.server_info;
 
