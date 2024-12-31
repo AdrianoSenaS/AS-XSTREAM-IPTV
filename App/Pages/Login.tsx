@@ -2,42 +2,46 @@ import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, Alert, StatusBar, TouchableOpacity, SafeAreaView, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import { LoginUserStream } from '../Services/Login';
 import { UserLogged } from '../Services/Login';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const Login: React.FC = ({ navigation }: any) => {
+    const [Name, SetName] = useState("")
     const [usuario, SetUsuario] = useState("")
     const [senha, SetSenha] = useState("")
     const [url, SetUrl] = useState("")
-    const [Loanding, SetLoading] = useState(false)
-
-
-    useEffect(()=>{
-     const Login = async ()  =>{
+    const [Loanding, SetLoading] = useState(true)
+    const Login = async ()  =>{
+        const userDb = await AsyncStorage.getItem('user')
+       if(userDb === null && Name === ""){
+        SetLoading(false)
+       }  
         const user = await UserLogged();
-        SetLoading(true)
         if(user === true){
+            
             return  navigation.reset({
                 index:0,
                 routes:[{name:'Tabs'}]
             })
         }
-        return SetLoading(false)
+        
      }
+
+    useEffect(()=>{
      Login()
     })
 
     const BtnLogin = async () => {
-        if (usuario === "" || senha === "" || url === "") {
+        SetLoading(true)
+        if (Name === "" ||usuario === "" || senha === "" || url === "") {
             return Alert.alert('Notificação', 'Preencha todos os dado!')
         }
-        SetLoading(true)
-        const result = LoginUserStream(usuario, senha, url);
+        const result = LoginUserStream(Name,usuario, senha, url);
         if (await result !== "Ok") {
             Alert.alert('Notificação', 'Erro ao conectar!')
             SetLoading(false)
             return
         }
-        SetLoading(false)
         navigation.reset({
             index:0,
             routes:[{name:'Tabs'}]
@@ -75,6 +79,13 @@ const Login: React.FC = ({ navigation }: any) => {
                     style={styles.text}>
                     GERENCIE SEUS CONTEÚDOS PELO APP
                 </Text>
+                <TextInput
+                    style={styles.inputInitial}
+                    keyboardAppearance='dark'
+                    placeholder='SEU NOME'
+                    placeholderTextColor={'#C5C4C4'}
+                    value={Name}
+                    onChangeText={SetName} />
                 <TextInput
                     style={styles.inputInitial}
                     keyboardAppearance='dark'
