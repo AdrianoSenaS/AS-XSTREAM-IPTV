@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, Alert, StatusBar, TouchableOpacity, SafeAreaView, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, StyleSheet, Text, Alert, StatusBar, TouchableOpacity, SafeAreaView, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import { LoginUserStream } from '../Services/Login';
 
 
@@ -7,16 +7,32 @@ const Login: React.FC = ({ navigation }: any) => {
     const [usuario, SetUsuario] = useState("")
     const [senha, SetSenha] = useState("")
     const [url, SetUrl] = useState("")
+    const [Loanding, SetLoading] = useState(false)
 
     const BtnLogin = async () => {
         if (usuario === "" || senha === "" || url === "") {
             return Alert.alert('Notificação', 'Preencha todos os dado!')
         }
-        const result = LoginUserStream(usuario, senha, url, navigation);
-        await result !== "Ok" ? Alert.alert('Notificação', 'Erro ao conectar!') : null
+        SetLoading(true)
+        const result = LoginUserStream(usuario, senha, url);
+        if (await result !== "Ok") {
+            Alert.alert('Notificação', 'Erro ao conectar!')
+            SetLoading(false)
+            return
+        }
+        SetLoading(false)
+        navigation.navigate('Home');
     }
 
-    
+    if (Loanding === true) {
+        return (
+
+            <SafeAreaView style={[StyleLoading.container, StyleLoading.horizontal]}>
+                <ActivityIndicator size="large" color={'#fff'} />
+            </SafeAreaView>
+
+        )
+    }
     return (
         <SafeAreaView
             style={{ flex: 1, backgroundColor: '#000' }}>
@@ -42,14 +58,14 @@ const Login: React.FC = ({ navigation }: any) => {
                 <TextInput
                     style={styles.inputInitial}
                     keyboardAppearance='dark'
-                    placeholder='INSIRA SEU USUÁRIO'
+                    placeholder='USUÁRIO'
                     placeholderTextColor={'#C5C4C4'}
                     value={usuario}
                     onChangeText={SetUsuario} />
                 <TextInput
                     style={styles.inputInitial}
                     keyboardAppearance='dark'
-                    placeholder='INSIRA SUA SENHA'
+                    placeholder='SENHA'
                     placeholderTextColor={'#C5C4C4'}
                     secureTextEntry={true}
                     value={senha}
@@ -57,7 +73,7 @@ const Login: React.FC = ({ navigation }: any) => {
                 <TextInput
                     style={styles.inputInitial}
                     keyboardAppearance='dark'
-                    placeholder='URL ex: http://xstreamexample.com'
+                    placeholder='URl http://xstreamexample.com'
                     placeholderTextColor={'#C5C4C4'}
                     value={url}
                     onChangeText={SetUrl} />
@@ -119,6 +135,20 @@ const styles = StyleSheet.create({
         borderRadius: 10
     }
 
+});
+
+
+const StyleLoading = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: '#000',
+    },
+    horizontal: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        padding: 10,
+    },
 });
 
 export default Login

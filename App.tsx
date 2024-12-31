@@ -6,7 +6,7 @@ import { ActivityIndicator, SafeAreaView, StyleSheet } from 'react-native';
 import { UserLogged } from './App/Services/Login';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
- 
+
 
 const Stack = createNativeStackNavigator();
 
@@ -16,11 +16,11 @@ const App: React.FC = ({ navigation }: any) => {
   useEffect(() => {
     const login = async () => {
       const LoginUse = await UserLogged();
-      LoginUse === true ? setInitialRout("Home"):setInitialRout("Login")
+      LoginUse === true ? setInitialRout("Home") : setInitialRout("Login")
     }
     login()
   })
-  if(initialRoute !== ""){
+  if (initialRoute !== "") {
     return (
       <NavigationContainer>
         <Stack.Navigator initialRouteName={initialRoute}>
@@ -35,15 +35,15 @@ const App: React.FC = ({ navigation }: any) => {
         </Stack.Navigator>
       </NavigationContainer>
     )
-  }else{
-    return(
-
-      <SafeAreaView style={[styles.container, styles.horizontal]}>
-        <ActivityIndicator size="large" />
-      </SafeAreaView>
-
-    )
   }
+  return (
+
+    <SafeAreaView style={[styles.container, styles.horizontal]}>
+      <ActivityIndicator size="large" />
+    </SafeAreaView>
+
+  )
+
 }
 const styles = StyleSheet.create({
   container: {
