@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, Alert, StatusBar, TouchableOpacity, SafeAreaView, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import { LoginUserStream } from '../Services/Login';
-import { UserLogged } from '../Services/Login';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const Login: React.FC = ({ navigation }: any) => {
@@ -10,30 +8,12 @@ const Login: React.FC = ({ navigation }: any) => {
     const [usuario, SetUsuario] = useState("")
     const [senha, SetSenha] = useState("")
     const [url, SetUrl] = useState("")
-    const [Loanding, SetLoading] = useState(true)
-    const Login = async ()  =>{
-        const userDb = await AsyncStorage.getItem('user')
-       if(userDb === null && Name === ""){
-        SetLoading(false)
-       }  
-        const user = await UserLogged();
-        if(user === true){
-            
-            return  navigation.reset({
-                index:0,
-                routes:[{name:'Tabs'}]
-            })
-        }
-        
-     }
-
-    useEffect(()=>{
-     Login()
-    })
+    const [Loanding, SetLoading] = useState(false)
 
     const BtnLogin = async () => {
         SetLoading(true)
         if (Name === "" ||usuario === "" || senha === "" || url === "") {
+            SetLoading(false)
             return Alert.alert('Notificação', 'Preencha todos os dado!')
         }
         const result = LoginUserStream(Name,usuario, senha, url);
@@ -47,6 +27,9 @@ const Login: React.FC = ({ navigation }: any) => {
             routes:[{name:'Tabs'}]
         })
     }
+    
+   
+   
 
     if (Loanding === true) {
         return (

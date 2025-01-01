@@ -10,6 +10,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Feather from '@expo/vector-icons/Feather';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { Platform } from 'react-native';
 
 
 const Stack = createNativeStackNavigator();
@@ -19,7 +20,7 @@ const Tab = createBottomTabNavigator();
 const TabNavigator = ()=>{
   return(
     <Tab.Navigator initialRouteName='Home' 
-    screenOptions={{tabBarStyle:{backgroundColor:'#000', borderTopColor:'rgba(217, 217, 217, 0.7)'}}}>
+    screenOptions={{tabBarStyle:{ backgroundColor: 'rgb(0, 0, 0)', position:'absolute'}}}>
       <Tab.Screen name="Home" 
       component={Home} 
       options={{headerShown:false, tabBarLabelStyle:{fontSize:13}, tabBarIcon({focused, color, size}) {
@@ -42,7 +43,7 @@ const TabNavigator = ()=>{
 const App: React.FC = ({ navigation }: any) => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={'Login'}>
+      <Stack.Navigator initialRouteName={'Tabs'}>
         <Stack.Screen
           name='Tabs'
           component={TabNavigator}
