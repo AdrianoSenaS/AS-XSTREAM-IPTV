@@ -1,18 +1,56 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, StatusBar, TouchableOpacity, ImageBackground, SafeAreaView, ActivityIndicator, FlatList, ScrollView, Image } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, Modal, TouchableOpacity, ImageBackground, SafeAreaView, ActivityIndicator, FlatList, ScrollView, TextInput } from 'react-native';
+import { Image } from 'expo-image';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as FileSystem from 'expo-file-system';
 
 const Home: React.FC = ({ navigation }: any) => {
     const CountSelecao = Math.floor(Math.random() * 10)
-    const [Loanding, SetLoanding] = useState(true)
+    const [CountStream, SetCountStream] = useState(10)
+    const [Loanding, SetLoanding] = useState(false)
     const [UserNameLabelScree, SetUserNameLabelScree] = useState('')
     const [ImageBanner, SetImageBanner] = useState('');
     const [Title, SetTitle] = useState("")
-    const [DataCategoriesMovies, SetDataCategoriesMovies] = useState<[]>([])
-    const [DatasMovies, SetDatasMovies] = useState<[]>([])
+    const [DataCategoriesStream, SetDataCategoriesStream] = useState<[]>([])
+    const [DatasStream, SetDatasStream] = useState<[]>([])
+    const [modalVisible, setModalVisible] = useState(false);
+    const [urlApiStream, seturlApiStream] = useState('')
+    const [userApiStream, setuserApiStream] = useState('')
+    const [passwordApiStream, setpasswordApiStream] = useState('')
 
+    const getFileUri = (fileName: string) => `${FileSystem.documentDirectory}${fileName}`;
+
+    const saveDataStream = async (fileName: string, data: object) => {
+        try {
+            const fileUri = `${FileSystem.documentDirectory}${fileName}`;
+
+
+            const dataString = JSON.stringify(data);
+
+
+            await FileSystem.writeAsStringAsync(fileUri, dataString);
+            console.log(`Arquivo salvo com sucesso em: ${fileUri}`);
+        } catch (error) {
+            console.error('Erro ao salvar o arquivo:', error);
+        }
+    };
+    const readDataStream = async (fileName: string) => {
+        try {
+
+            const fileUri = getFileUri(fileName);
+
+
+            const dataString = await FileSystem.readAsStringAsync(fileUri);
+
+
+            const dataObject = JSON.parse(dataString);
+            return dataObject
+        } catch (error) {
+            return null
+        }
+    };
 
     const Login = async () => {
         const userDb = await AsyncStorage.getItem('username')
@@ -25,57 +63,87 @@ const Home: React.FC = ({ navigation }: any) => {
     }
     const GetUserNameLabel = async () => {
         const user = await AsyncStorage.getItem('name')
-        user != null ? SetUserNameLabelScree(user) : null
+        user != null ? SetUserNameLabelScree(`Para ${user}`) : null
 
     }
 
-    const GetCategoriesMovies = async () => {
+    const GetCategoriesStream = async () => {
         try {
-            let url = await AsyncStorage.getItem('url')
-            let username = await AsyncStorage.getItem('username')
-            let password = await AsyncStorage.getItem('password')
-            if (url != null && username != null && password != null) {
-                const urlApi = `${url}/player_api.php?username=${username}&password=${password}&action=`
-                const response = await fetch(`${urlApi}get_vod_categories`)
-                const categoria = await response.json();
-                const resposeMovie = await fetch(`${urlApi}get_vod_streams`)
-                const movie = await resposeMovie.json()
-                SetDataCategoriesMovies(categoria)
-                SetDatasMovies(movie)
-                Destaque(movie)
-                SetLoanding(false)
+            const StreamData = await readDataStream('movies.json')
+            const StreamDataCategories = await readDataStream('categoriesMovies.json')
+            if (StreamData !== null && StreamDataCategories !== null) {
+
+                SetDataCategoriesStream(StreamDataCategories)
+                SetDatasStream(StreamData)
+                Destaque(StreamData)
+                console.log('Filmes Exibido localmente')
+            } else {
+                SetLoanding(true)
+                let url = await AsyncStorage.getItem('url')
+                let username = await AsyncStorage.getItem('username')
+                let password = await AsyncStorage.getItem('password')
+                if (url != null && username != null && password != null) {
+                    const urlApi = `${url}/player_api.php?username=${username}&password=${password}&action=`
+                    const response = await fetch(`${urlApi}get_vod_categories`)
+                    const categoria = await response.json();
+                    const resposeStream = await fetch(`${urlApi}get_vod_streams`)
+                    const Stream = await resposeStream.json()
+                    SetDataCategoriesStream(categoria)
+                    SetDatasStream(Stream)
+                    Destaque(Stream)
+                    saveDataStream('categoriesMovies.json', categoria)
+                    saveDataStream('movies.json', Stream)
+
+                    SetLoanding(false)
+
+                }
             }
+
         } catch (e: any) {
             console.log(e.Message)
         }
     }
 
-    const Destaque = (movieData:any) => {
-        movieData.forEach((movie: any) => {
-            if (movie.num === CountSelecao) {
-                SetImageBanner(movie.stream_icon)
-                SetTitle(movie.title)
-                console.log(movie)
+    const Destaque = (StreamData: any) => {
+        StreamData.forEach((Stream: any) => {
+            if (Stream.num === CountSelecao && Stream.stream_icon != undefined) {
+                SetImageBanner(Stream.stream_icon)
+                SetTitle(Stream.title)
+
             }
         });
     }
 
-    const GetMoviesCategorieID = (id: string) => {
-        const uniqueMovies = DatasMovies
-            .filter((movie: any) => movie.category_id === id)
-                
-        return uniqueMovies;
+    const GetStreamCategorieID = (id: any) => {
+        const uniqueStream = DatasStream
+            .filter((Stream: any) => Stream.category_id === id).slice(0, CountStream)
+
+        return uniqueStream;
     };
-    
+
+    const GetStreamList = () => {
+        SetCountStream(CountStream + 10)
+        console.log("Buscando filmes")
+    }
 
     useEffect(() => {
         const Main = async () => {
+            let url = await AsyncStorage.getItem('url')
+            let username = await AsyncStorage.getItem('username')
+            let password = await AsyncStorage.getItem('password')
+            if (url != null && username != null && password != null) {
+                seturlApiStream(url)
+                setuserApiStream(username)
+                setpasswordApiStream(password)
+            }
             Login()
             GetUserNameLabel();
-            GetCategoriesMovies()
+            GetCategoriesStream()
+
         }
         Main()
     }, [])
+
 
     if (Loanding === true)
         return (
@@ -89,11 +157,35 @@ const Home: React.FC = ({ navigation }: any) => {
             source={{ uri: ImageBanner }}>
             <SafeAreaView style={{ flex: 1 }}>
                 <StatusBar barStyle={'light-content'} />
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => {
+
+                        setModalVisible(!modalVisible);
+                    }}>
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                            <Text style={styles.modalText}>Hello World!</Text>
+                            <TouchableOpacity
+                                style={[styles.button, styles.buttonClose]}
+                                onPress={() => setModalVisible(!modalVisible)}>
+                                <Text style={styles.textStyle}>Hide Modal</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </Modal>
                 <View style={styles.container}>
                     <View style={styles.navbar}>
-                        <Text style={styles.textColorTitle}>Para {UserNameLabelScree}</Text>
+                        <Text style={styles.textColorTitle}>{UserNameLabelScree}</Text>
                         <TouchableOpacity style={{ marginRight: 20 }}>
                             <AntDesign name="search1" size={30} color={'#fff'} />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.selecaoItens}>
+                        <TouchableOpacity style={styles.btnSelecaoItens}>
+                            <Text style={styles.TextSelecaoItens}>Categorias</Text>
                         </TouchableOpacity>
                     </View>
                     <ScrollView style={{ flex: 1, width: '100%' }}>
@@ -113,25 +205,38 @@ const Home: React.FC = ({ navigation }: any) => {
                                 </ImageBackground>
                             </View>
                             {
-                                DataCategoriesMovies.map((categoria: any) => (
+                                DataCategoriesStream.map((categoria: any) => (
                                     <View key={categoria.category_id}>
                                         <Text style={styles.TextCategories}>{categoria.category_name}</Text>
                                         <FlatList
                                             style={styles.FlatListMain}
-                                            data={GetMoviesCategorieID(categoria.category_id)|| []}
-                                            keyExtractor={(movie: any) => movie.stream_id}
-                                            renderItem={(movie) => (
-                                                <View style={styles.movieCard}>
-                                                    <Image
-                                                        source={{ uri: movie.item.stream_icon }}
-                                                        style={styles.movieImage}
-
-                                                    />
-                                                </View>
-                                            )} 
+                                            data={GetStreamCategorieID(categoria.category_id) || []}
+                                            keyExtractor={(Stream: any) => Stream.stream_id}
                                             horizontal={true}
                                             showsHorizontalScrollIndicator={false}
-                                            nestedScrollEnabled={true}/>
+                                            nestedScrollEnabled={true}
+                                            onEndReached={GetStreamList}
+                                            onEndReachedThreshold={0.1}
+                                            initialNumToRender={5}
+                                            maxToRenderPerBatch={10}
+                                            removeClippedSubviews={true}
+                                            renderItem={(Stream) => (
+                                                <View style={styles.StreamCard}>
+                                                    <TouchableOpacity onPress={() =>
+                                                        navigation.navigate('infoStream',
+                                                            {
+                                                                streamId: Stream.item.stream_id, title: Stream.item.title, image: Stream.item.stream_icon, description: Stream.item.plot,
+                                                                urlStream: `${urlApiStream}/${Stream.item.stream_type}/${userApiStream}/${passwordApiStream}/${Stream.item.stream_id}.${Stream.item.container_extension}`
+                                                            })}>
+                                                        <Image
+                                                            source={{ uri: Stream.item.stream_icon }}
+                                                            style={styles.StreamImage}
+                                                            cachePolicy={'memory-disk'}
+                                                        />
+                                                    </TouchableOpacity>
+                                                </View>
+                                            )}
+                                        />
                                     </View>
                                 ))
                             }
@@ -161,7 +266,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row',
-        margin: 20,
+        marginTop: 10,
+        marginBottom: 10,
         backgroundColor: "rgba(0, 0, 0, 0)"
     },
     textColorTitle: {
@@ -171,11 +277,12 @@ const styles = StyleSheet.create({
         marginLeft: 20
     },
     ImageInicioView: {
+        visibility: 'invisibe',
         zIndex: 1,
         paddingLeft: 30,
         paddingRight: 30,
         height: 500,
-        borderRadius:10,
+        borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -223,7 +330,7 @@ const styles = StyleSheet.create({
     ViewFlatLisr: {
         zIndex: 4,
         marginTop: 20,
-        marginBottom:60
+        marginBottom: 60
     },
     FlatListMain: {
         marginTop: 10,
@@ -247,29 +354,90 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         marginBottom: 5,
     },
-    movieCard: {
+    StreamCard: {
         marginHorizontal: 3,
         alignItems: "center",
     },
-    movieImage: {
+    StreamImage: {
         width: 100,
         height: 150,
         borderRadius: 5,
         backgroundColor: "rgba(0, 0, 0, 0.75)"
+    },
+    selecaoItens: {
+        flexDirection: 'row',
+        width: '100%',
+        marginLeft: 20,
+        marginBottom: 15,
+        justifyContent: 'flex-start',
+    },
+    TextSelecaoItens: {
+        color: "#fff",
+        fontSize: 16
+    },
+    btnSelecaoItens: {
+        marginLeft: 10,
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor: "#fff",
+        paddingTop: 6,
+        paddingBottom: 6,
+        paddingLeft: 15,
+        paddingRight: 15
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        padding: 35,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+    },
+    button: {
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2,
+    },
+    buttonOpen: {
+        backgroundColor: '#F194FF',
+    },
+    buttonClose: {
+        backgroundColor: '#2196F3',
+    },
+    textStyle: {
+        color: 'white',
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: 'center',
     },
 });
 
 
 const StyleLoading = StyleSheet.create({
     container: {
-        top:0,
-        bottom:0,
-        left:0,
-        right:0,
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
         justifyContent: 'center',
-        alignItems:'center',
+        alignItems: 'center',
         backgroundColor: '#000',
-        position:'absolute'
+        position: 'absolute'
 
     },
     horizontal: {

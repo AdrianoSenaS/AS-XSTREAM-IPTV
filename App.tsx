@@ -2,39 +2,42 @@ import React from 'react';
 import Home from './App/Pages/Home';
 import Login from './App/Pages/Login';
 import Tv from './App/Pages/Tv';
-import Movies from './App/Pages/Movies';
 import Series from './App/Pages/Series';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import AntDesign from '@expo/vector-icons/AntDesign';
 import Feather from '@expo/vector-icons/Feather';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import { Platform } from 'react-native';
+import infoStream from './App/Pages/infoStream';
+import { Player } from './App/Pages/Player';
+
 
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 
-const TabNavigator = ()=>{
-  return(
-    <Tab.Navigator initialRouteName='Home' 
-    screenOptions={{tabBarStyle:{ backgroundColor: 'rgb(0, 0, 0)', position:'absolute'}}}>
-      <Tab.Screen name="Home" 
-      component={Home} 
-      options={{headerShown:false, tabBarLabelStyle:{fontSize:13}, tabBarIcon({focused, color, size}) {
-          return <AntDesign name="home" size={size} color={color} />
-      }, tabBarActiveTintColor:"rgba(255, 255, 255, 1)", tabBarInactiveTintColor:'rgba(217, 217, 217, 0.7)'}}/>
-      <Tab.Screen name="Tv" component={Tv}  options={{headerShown:false, tabBarLabelStyle:{fontSize:13}, tabBarIcon({focused, color, size}) {
+const TabNavigator = () => {
+  return (
+    <Tab.Navigator initialRouteName='Home'
+      screenOptions={{ tabBarStyle: { backgroundColor: 'rgb(0, 0, 0)', position: 'absolute' } }}>
+      <Tab.Screen name="Home"
+        component={Home}
+        options={{
+          title: "Filmes", headerShown: false, tabBarLabelStyle: { fontSize: 13 }, tabBarIcon({ focused, color, size }) {
+            return <MaterialCommunityIcons name="movie-roll" size={size} color={color} />
+          }, tabBarActiveTintColor: "rgba(255, 255, 255, 1)", tabBarInactiveTintColor: 'rgba(217, 217, 217, 0.7)'
+        }} />
+      <Tab.Screen name="Tv" component={Tv} options={{
+        title: "Tv", headerShown: false, tabBarLabelStyle: { fontSize: 13 }, tabBarIcon({ focused, color, size }) {
           return <Feather name="tv" size={size} color={color} />
-      }, tabBarActiveTintColor:"rgba(255, 255, 255, 1)", tabBarInactiveTintColor:'rgba(217, 217, 217, 0.7)'}}/>
-       <Tab.Screen name="Movies" component={Movies}  options={{headerShown:false, tabBarLabelStyle:{fontSize:13}, tabBarIcon({focused, color, size}) {
-          return <MaterialCommunityIcons name="movie-roll" size={size} color={color} />
-      }, tabBarActiveTintColor:"rgba(255, 255, 255, 1)", tabBarInactiveTintColor:'rgba(217, 217, 217, 0.7)'}}/>
-       <Tab.Screen name="Series" component={Series}  options={{headerShown:false, tabBarLabelStyle:{fontSize:13}, tabBarIcon({focused, color, size}) {
+        }, tabBarActiveTintColor: "rgba(255, 255, 255, 1)", tabBarInactiveTintColor: 'rgba(217, 217, 217, 0.7)'
+      }} />
+      <Tab.Screen name="Series" component={Series} options={{
+        title: "Séries", headerShown: false, tabBarLabelStyle: { fontSize: 13 }, tabBarIcon({ focused, color, size }) {
           return <MaterialCommunityIcons name="movie-open-outline" size={size} color={color} />
-      }, tabBarActiveTintColor:"rgba(255, 255, 255, 1)", tabBarInactiveTintColor:'rgba(217, 217, 217, 0.7)'}}/>
+        }, tabBarActiveTintColor: "rgba(255, 255, 255, 1)", tabBarInactiveTintColor: 'rgba(217, 217, 217, 0.7)'
+      }} />
     </Tab.Navigator>
   )
 }
@@ -51,6 +54,14 @@ const App: React.FC = ({ navigation }: any) => {
         <Stack.Screen
           name='Login'
           component={Login}
+          options={{ headerShown: false }} />
+        <Stack.Screen
+          name='infoStream'
+          component={infoStream}
+          options={{ headerShown: false }} />
+        <Stack.Screen
+          name='Player'
+          component={Player}
           options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
