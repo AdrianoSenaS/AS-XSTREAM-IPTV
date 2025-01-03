@@ -1,13 +1,18 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert, ImageBackground } from 'react-native';
 import { Image } from 'expo-image';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import { SafeAreaView } from 'react-native-safe-area-context';
 export default function infoStream({ navigation, route }: any) {
     const { streamId, title, image, description, urlhls, streamType, year,container_extension } = route.params
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <View style={styles.card}>
+        <SafeAreaView style={styles.container}>
+<ScrollView >
+            <ImageBackground
+            source={{ uri: image }}
+            blurRadius={100}
+             style={styles.card}>
                 <Image source={{ uri: image }} style={styles.image} cachePolicy={'memory-disk'} />
                 <View style={styles.info}>
                     <Text style={styles.title}>{title}</Text>
@@ -24,9 +29,9 @@ export default function infoStream({ navigation, route }: any) {
                         </TouchableOpacity>
                     </View>
                 </View>
-            </View>
+            </ImageBackground>
         </ScrollView>
-
+        </SafeAreaView>
     );
 }
 
@@ -38,12 +43,12 @@ const styles = StyleSheet.create({
     },
     card: {
         flex: 1,
-
+        backgroundColor: '#000',
     },
     image: {
         width: '100%',
         height: 300,
-        resizeMode: 'cover',
+        resizeMode: 'stretch',
     },
     info: {
         padding: 10,
