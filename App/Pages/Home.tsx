@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, StatusBar, Modal, TouchableOpacity, ImageBackground, SafeAreaView, ActivityIndicator, FlatList, ScrollView, TextInput } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, Modal, TouchableOpacity, ImageBackground, SafeAreaView, ActivityIndicator, FlatList, ScrollView } from 'react-native';
 import { Image } from 'expo-image';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
@@ -226,7 +226,11 @@ const Home: React.FC = ({ navigation }: any) => {
                                                         navigation.navigate('infoStream',
                                                             {
                                                                 streamId: Stream.item.stream_id, title: Stream.item.title, image: Stream.item.stream_icon, description: Stream.item.plot,
-                                                                urlStream: `${urlApiStream}/${Stream.item.stream_type}/${userApiStream}/${passwordApiStream}/${Stream.item.stream_id}.${Stream.item.container_extension}`
+                                                                urlhls: `${urlApiStream}/${Stream.item.stream_type}/${userApiStream}/${passwordApiStream}/${Stream.item.stream_id}.${Stream.item.container_extension}`,
+                                                                typeUrl: Stream.item.container_extension,
+                                                                streamType:Stream.item.stream_type,
+                                                                year:Stream.item.year,
+                                                                container_extension:Stream.item.container_extension
                                                             })}>
                                                         <Image
                                                             source={{ uri: Stream.item.stream_icon }}
@@ -277,7 +281,6 @@ const styles = StyleSheet.create({
         marginLeft: 20
     },
     ImageInicioView: {
-        visibility: 'invisibe',
         zIndex: 1,
         paddingLeft: 30,
         paddingRight: 30,

@@ -1,20 +1,20 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
+import { Image } from 'expo-image';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 export default function infoStream({ navigation, route }: any) {
-    const { streamId, title, image, description, urlStream } = route.params;
-    console.log(urlStream)
+    const { streamId, title, image, description, urlhls, streamType, year,container_extension } = route.params
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.card}>
-                <Image source={{ uri: image }} style={styles.image} />
+                <Image source={{ uri: image }} style={styles.image} cachePolicy={'memory-disk'} />
                 <View style={styles.info}>
                     <Text style={styles.title}>{title}</Text>
                     <Text style={styles.description}>{description}</Text>
-                    <Text style={styles.releaseDate}>{`Lançado em: `}</Text>
+                    <Text style={styles.releaseDate}>{`Lançado em: ${year} `}</Text>
                     <View style={styles.buttons}>
-                        <TouchableOpacity onPress={() => navigation.navigate('Player', { urlStream: urlStream })} style={styles.btnAssitirBanner}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Player', { urlhls: urlhls, streamType:streamType, container_extension:container_extension })} style={styles.btnAssitirBanner}>
                             <FontAwesome5 name="play" size={20} color="black" />
                             <Text style={styles.Textbanner}>Assistir</Text>
                         </TouchableOpacity>
