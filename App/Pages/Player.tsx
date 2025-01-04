@@ -1,29 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View,  ActivityIndicator } from 'react-native';
+import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { WebView } from 'react-native-webview';
 import * as ScreenOrientation from 'expo-screen-orientation';
 
-
-
-
 export const Player = ({ navigation, route }: any) => {
-    const { urlhls, streamType,container_extension } = route.params;
-    const [loading, setLoading] = useState(true);
-    const [typeStream, stream_type]=  useState('')
+  const { urlhls, streamType, container_extension } = route.params;
+  const [loading, setLoading] = useState(true);
+  const [typeStream, stream_type] = useState('')
 
-    // Forçar a orientação para paisagem
-    useEffect(() => {
-       if(streamType==='movie'){
-        stream_type(`video/${container_extension}`)
-       }
-      console.log(urlhls)
-        ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
-        return () => {
-            ScreenOrientation.unlockAsync();
-        };
-    }, []);
+  // Forçar a orientação para paisagem
+  useEffect(() => {
+    if (streamType === 'movie') {
+      stream_type(`video/${container_extension}`)
+    }
+    console.log(urlhls)
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
+    return () => {
+      ScreenOrientation.unlockAsync();
+    };
+  }, []);
 
-    const htmlContent = `
+  const htmlContent = `
     <html>
       <head>
         <style>
@@ -81,46 +78,43 @@ export const Player = ({ navigation, route }: any) => {
       </body>
     </html>
   `;
-  
-   
-    return (
-        <View style={styles.contentContainer}>
 
-        <WebView style={styles.contentContainer}
+
+  return (
+    <View style={styles.contentContainer}>
+      <WebView style={styles.contentContainer}
         originWhitelist={['*']}
         source={{ html: htmlContent }}
         injectedJavaScript={htmlContent} // Injeta o HTML + JS na WebView
         onMessage={(event) => {
-            if(event.nativeEvent.data == "O vídeo começou a reproduzir"){
-                setLoading(false)
-            }
+          if (event.nativeEvent.data == "O vídeo começou a reproduzir") {
+            setLoading(false)
+          }
           console.log(event.nativeEvent.data); // Mensagens enviadas do HTML para o React Native
         }}
       />
-            {loading && (
-                <ActivityIndicator size="large" color="#fff" style={styles.loading} />
-            )}
-
-        </View>
-      
-    );
+      {loading && (
+        <ActivityIndicator size="large" color="#fff" style={styles.loading} />
+      )}
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-    contentContainer: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#000'
-    },
-    video: {
-        width: '100%',
-        height: '50%',
-    },
-    loading: {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: [{ translateX: -25 }, { translateY: -25 }],
-    },
+  contentContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#000'
+  },
+  video: {
+    width: '100%',
+    height: '50%',
+  },
+  loading: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: [{ translateX: -25 }, { translateY: -25 }],
+  },
 });

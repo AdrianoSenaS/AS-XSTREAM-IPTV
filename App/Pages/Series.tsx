@@ -17,30 +17,21 @@ const Series: React.FC = ({ navigation }: any) => {
     const [DatasStream, SetDatasStream] = useState<[]>([])
 
     const getFileUri = (fileName: string) => `${FileSystem.documentDirectory}${fileName}`;
-
     const saveDataStream = async (fileName: string, data: object) => {
         try {
             const fileUri = `${FileSystem.documentDirectory}${fileName}`;
-
-
             const dataString = JSON.stringify(data);
-
-
             await FileSystem.writeAsStringAsync(fileUri, dataString);
             console.log(`Arquivo salvo com sucesso em: ${fileUri}`);
         } catch (error) {
             console.error('Erro ao salvar o arquivo:', error);
         }
     };
+
     const readDataStream = async (fileName: string) => {
         try {
-
             const fileUri = getFileUri(fileName);
-
-
             const dataString = await FileSystem.readAsStringAsync(fileUri);
-
-
             const dataObject = JSON.parse(dataString);
             return dataObject
         } catch (error) {
@@ -57,10 +48,10 @@ const Series: React.FC = ({ navigation }: any) => {
             })
         }
     }
+
     const GetUserNameLabel = async () => {
         const user = await AsyncStorage.getItem('name')
         user != null ? SetUserNameLabelScree(`Para ${user}`) : null
-
     }
 
     const GetCategoriesStream = async () => {
@@ -68,7 +59,6 @@ const Series: React.FC = ({ navigation }: any) => {
             const StreamData = await readDataStream('Series.json')
             const StreamDataCategories = await readDataStream('categoriesSeries.json')
             if (StreamData !== null && StreamDataCategories !== null) {
-
                 SetDataCategoriesStream(StreamDataCategories)
                 SetDatasStream(StreamData)
                 Destaque(StreamData)
@@ -89,9 +79,7 @@ const Series: React.FC = ({ navigation }: any) => {
                     Destaque(Stream)
                     saveDataStream('categoriesSeries.json', categoria)
                     saveDataStream('Series.json', Stream)
-
                     SetLoanding(false)
-
                 }
             }
 
@@ -105,7 +93,6 @@ const Series: React.FC = ({ navigation }: any) => {
             if (Stream.num === CountSelecao && Stream.stream_icon != undefined) {
                 SetImageBanner(Stream.stream_icon)
                 SetTitle(Stream.title)
-
             }
         });
     }
@@ -113,7 +100,6 @@ const Series: React.FC = ({ navigation }: any) => {
     const GetStreamCategorieID = (id: any) => {
         const uniqueStream = DatasStream
             .filter((Stream: any) => Stream.category_id === id).slice(0, CountStream)
-
         return uniqueStream;
     };
 
@@ -124,11 +110,9 @@ const Series: React.FC = ({ navigation }: any) => {
 
     useEffect(() => {
         const Main = async () => {
-
             Login()
             GetUserNameLabel();
             GetCategoriesStream()
-
         }
         Main()
     }, [])
@@ -346,7 +330,6 @@ const styles = StyleSheet.create({
         paddingRight: 15
     }
 });
-
 
 const StyleLoading = StyleSheet.create({
     container: {

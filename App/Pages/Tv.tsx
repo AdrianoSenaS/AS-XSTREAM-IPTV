@@ -20,15 +20,10 @@ const Tv: React.FC = ({ navigation }: any) => {
     const [passwordApiStream, setpasswordApiStream] = useState('')
 
     const getFileUri = (fileName: string) => `${FileSystem.documentDirectory}${fileName}`;
-
     const saveDataStream = async (fileName: string, data: object) => {
         try {
             const fileUri = `${FileSystem.documentDirectory}${fileName}`;
-
-
             const dataString = JSON.stringify(data);
-
-
             await FileSystem.writeAsStringAsync(fileUri, dataString);
             console.log(`Arquivo salvo com sucesso em: ${fileUri}`);
         } catch (error) {
@@ -37,13 +32,8 @@ const Tv: React.FC = ({ navigation }: any) => {
     };
     const readDataStream = async (fileName: string) => {
         try {
-
             const fileUri = getFileUri(fileName);
-
-
             const dataString = await FileSystem.readAsStringAsync(fileUri);
-
-
             const dataObject = JSON.parse(dataString);
             return dataObject
         } catch (error) {
@@ -63,7 +53,6 @@ const Tv: React.FC = ({ navigation }: any) => {
     const GetUserNameLabel = async () => {
         const user = await AsyncStorage.getItem('name')
         user != null ? SetUserNameLabelScree(`Para ${user}`) : null
-
     }
 
     const GetCategoriesStream = async () => {
@@ -71,7 +60,6 @@ const Tv: React.FC = ({ navigation }: any) => {
             const StreamData = await readDataStream('Tv.json')
             const StreamDataCategories = await readDataStream('categoriesTv.json')
             if (StreamData !== null && StreamDataCategories !== null) {
-
                 SetDataCategoriesStream(StreamDataCategories)
                 SetDatasStream(StreamData)
                 Destaque(StreamData)
@@ -92,9 +80,7 @@ const Tv: React.FC = ({ navigation }: any) => {
                     Destaque(Stream)
                     saveDataStream('categoriesTv.json', categoria)
                     saveDataStream('Tv.json', Stream)
-
                     SetLoanding(false)
-
                 }
             }
 
@@ -108,7 +94,6 @@ const Tv: React.FC = ({ navigation }: any) => {
             if (Stream.num === CountSelecao && Stream.stream_icon != undefined) {
                 SetImageBanner(Stream.stream_icon)
                 SetTitle(Stream.title)
-
             }
         });
     }
@@ -116,7 +101,6 @@ const Tv: React.FC = ({ navigation }: any) => {
     const GetStreamCategorieID = (id: any) => {
         const uniqueStream = DatasStream
             .filter((Stream: any) => Stream.category_id === id).slice(0, CountStream)
-
         return uniqueStream;
     };
 
@@ -138,7 +122,6 @@ const Tv: React.FC = ({ navigation }: any) => {
             Login()
             GetUserNameLabel();
             GetCategoriesStream()
-
         }
         Main()
     }, [])
@@ -205,7 +188,7 @@ const Tv: React.FC = ({ navigation }: any) => {
                                                         navigation.navigate('Player',
                                                             {
                                                                 urlhls: `${urlApiStream}/${Stream.item.stream_type}/${userApiStream}/${passwordApiStream}/${Stream.item.stream_id}`,
-                                                                typeUrl:'m3u8'
+                                                                typeUrl: 'm3u8'
                                                             })}>
                                                         <Image
                                                             source={{ uri: Stream.item.stream_icon }}
@@ -363,7 +346,6 @@ const styles = StyleSheet.create({
         paddingRight: 15
     }
 });
-
 
 const StyleLoading = StyleSheet.create({
     container: {

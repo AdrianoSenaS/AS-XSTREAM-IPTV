@@ -12,32 +12,28 @@ const Login: React.FC = ({ navigation }: any) => {
 
     const BtnLogin = async () => {
         SetLoading(true)
-        if (Name === "" ||usuario === "" || senha === "" || url === "") {
+        if (Name === "" || usuario === "" || senha === "" || url === "") {
             SetLoading(false)
             return Alert.alert('Notificação', 'Preencha todos os dado!')
         }
-        const result = LoginUserStream(Name,usuario, senha, url);
+        const result = LoginUserStream(Name, usuario, senha, url);
         if (await result !== "Ok") {
             Alert.alert('Notificação', 'Erro ao conectar!')
             SetLoading(false)
             return
         }
         navigation.reset({
-            index:0,
-            routes:[{name:'Tabs'}]
+            index: 0,
+            routes: [{ name: 'Tabs' }]
         })
     }
     
-   
-   
-
     if (Loanding === true) {
         return (
 
             <SafeAreaView style={[StyleLoading.container, StyleLoading.horizontal]}>
                 <ActivityIndicator size="large" color={'#fff'} />
             </SafeAreaView>
-
         )
     }
     return (
@@ -148,9 +144,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 10
     }
-
 });
-
 
 const StyleLoading = StyleSheet.create({
     container: {

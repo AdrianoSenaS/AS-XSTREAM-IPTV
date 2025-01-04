@@ -19,32 +19,30 @@ const Home: React.FC = ({ navigation }: any) => {
     const [urlApiStream, seturlApiStream] = useState('')
     const [userApiStream, setuserApiStream] = useState('')
     const [passwordApiStream, setpasswordApiStream] = useState('')
+    const [streamId, SetstreamId] = useState('')
+    const [description, Setdescription] = useState('')
+    const [urlhls, Seturlhls] = useState('')
+    const [typeUrl, SettypeUrl] = useState('')
+    const [streamType, SetstreamType] = useState('')
+    const [year, Setyear] = useState('')
+    const [container_extension, Setcontainer_extension] = useState('')
 
     const getFileUri = (fileName: string) => `${FileSystem.documentDirectory}${fileName}`;
-
     const saveDataStream = async (fileName: string, data: object) => {
         try {
             const fileUri = `${FileSystem.documentDirectory}${fileName}`;
-
-
             const dataString = JSON.stringify(data);
-
-
             await FileSystem.writeAsStringAsync(fileUri, dataString);
             console.log(`Arquivo salvo com sucesso em: ${fileUri}`);
         } catch (error) {
             console.error('Erro ao salvar o arquivo:', error);
         }
     };
+
     const readDataStream = async (fileName: string) => {
         try {
-
             const fileUri = getFileUri(fileName);
-
-
             const dataString = await FileSystem.readAsStringAsync(fileUri);
-
-
             const dataObject = JSON.parse(dataString);
             return dataObject
         } catch (error) {
@@ -61,6 +59,7 @@ const Home: React.FC = ({ navigation }: any) => {
             })
         }
     }
+
     const GetUserNameLabel = async () => {
         const user = await AsyncStorage.getItem('name')
         user != null ? SetUserNameLabelScree(`Para ${user}`) : null
@@ -72,7 +71,6 @@ const Home: React.FC = ({ navigation }: any) => {
             const StreamData = await readDataStream('movies.json')
             const StreamDataCategories = await readDataStream('categoriesMovies.json')
             if (StreamData !== null && StreamDataCategories !== null) {
-
                 SetDataCategoriesStream(StreamDataCategories)
                 SetDatasStream(StreamData)
                 Destaque(StreamData)
@@ -93,12 +91,9 @@ const Home: React.FC = ({ navigation }: any) => {
                     Destaque(Stream)
                     saveDataStream('categoriesMovies.json', categoria)
                     saveDataStream('movies.json', Stream)
-
                     SetLoanding(false)
-
                 }
             }
-
         } catch (e: any) {
             console.log(e.Message)
         }
@@ -109,7 +104,13 @@ const Home: React.FC = ({ navigation }: any) => {
             if (Stream.num === CountSelecao && Stream.stream_icon != undefined) {
                 SetImageBanner(Stream.stream_icon)
                 SetTitle(Stream.title)
-
+                SetstreamId(Stream.item.stream_id)
+                Setdescription(Stream.item.plot)
+                Seturlhls(`${urlApiStream}/${Stream.item.stream_type}/${userApiStream}/${passwordApiStream}/${Stream.item.stream_id}.${Stream.item.container_extension}`)
+                SettypeUrl(Stream.item.container_extension)
+                SetstreamType(Stream.item.stream_type)
+                Setyear(Stream.item.year)
+                Setcontainer_extension(Stream.item.container_extension)
             }
         });
     }
@@ -117,7 +118,6 @@ const Home: React.FC = ({ navigation }: any) => {
     const GetStreamCategorieID = (id: any) => {
         const uniqueStream = DatasStream
             .filter((Stream: any) => Stream.category_id === id).slice(0, CountStream)
-
         return uniqueStream;
     };
 
@@ -139,11 +139,9 @@ const Home: React.FC = ({ navigation }: any) => {
             Login()
             GetUserNameLabel();
             GetCategoriesStream()
-
         }
         Main()
     }, [])
-
 
     if (Loanding === true)
         return (
@@ -162,7 +160,6 @@ const Home: React.FC = ({ navigation }: any) => {
                     transparent={true}
                     visible={modalVisible}
                     onRequestClose={() => {
-
                         setModalVisible(!modalVisible);
                     }}>
                     <View style={styles.centeredView}>
@@ -198,6 +195,19 @@ const Home: React.FC = ({ navigation }: any) => {
                                     source={{ uri: ImageBanner }}>
                                     <Text style={styles.TxtTittleBanner}>{Title}</Text>
                                     <TouchableOpacity
+                                        onPress={() => navigation.name('infoStream',
+                                            {
+                                                streamId: streamId,
+                                                title: Title,
+                                                image: ImageBanner,
+                                                description: description,
+                                                urlhls: urlhls,
+                                                typeUrl: container_extension,
+                                                streamType: streamType,
+                                                year: year,
+                                                container_extension: container_extension
+                                            }
+                                        )}
                                         style={styles.btnAssitirBanner}>
                                         <FontAwesome5 name="play" size={20} color="black" />
                                         <Text style={styles.Textbanner}>Assistir</Text>
@@ -225,12 +235,15 @@ const Home: React.FC = ({ navigation }: any) => {
                                                     <TouchableOpacity onPress={() =>
                                                         navigation.navigate('infoStream',
                                                             {
-                                                                streamId: Stream.item.stream_id, title: Stream.item.title, image: Stream.item.stream_icon, description: Stream.item.plot,
+                                                                streamId: Stream.item.stream_id,
+                                                                title: Stream.item.title,
+                                                                image: Stream.item.stream_icon,
+                                                                description: Stream.item.plot,
                                                                 urlhls: `${urlApiStream}/${Stream.item.stream_type}/${userApiStream}/${passwordApiStream}/${Stream.item.stream_id}.${Stream.item.container_extension}`,
                                                                 typeUrl: Stream.item.container_extension,
-                                                                streamType:Stream.item.stream_type,
-                                                                year:Stream.item.year,
-                                                                container_extension:Stream.item.container_extension
+                                                                streamType: Stream.item.stream_type,
+                                                                year: Stream.item.year,
+                                                                container_extension: Stream.item.container_extension
                                                             })}>
                                                         <Image
                                                             source={{ uri: Stream.item.stream_icon }}
@@ -430,7 +443,6 @@ const styles = StyleSheet.create({
     },
 });
 
-
 const StyleLoading = StyleSheet.create({
     container: {
         top: 0,
@@ -450,5 +462,4 @@ const StyleLoading = StyleSheet.create({
     },
 
 });
-
 export default Home
