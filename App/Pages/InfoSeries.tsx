@@ -1,21 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert, ImageBackground, Modal } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert, ImageBackground, Modal, FlatList } from 'react-native';
 import { Image } from 'expo-image';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as ScreenOrientation from 'expo-screen-orientation';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function infoSeries({ navigation, route }: any) {
     const { series_id, title, image, description, year, } = route.params
     const [urlhls, Seturlhls] = useState(null)
     const [modalVisible, setModalVisible] = useState(false);
+    const [SeasonFlatList, SetSeasonFlatList] =  useState<[]>([])
 
+
+    const GetSeason = async ()=>{
+        let url = await AsyncStorage.getItem('url')
+        let username = await AsyncStorage.getItem('username')
+        let password = await AsyncStorage.getItem('password')
+        if (url != null && username != null && password != null) {
+            const urlApi = `${url}/player_api.php?username=${username}&password=${password}&action=`
+                    const response = await fetch(`${urlApi}get_series_info&series_id=${series_id}`)
+                    const Season = await response.json();
+            SetSeasonFlatList(Season.seasons)
+            console.log(Season.seasons)
+        }
+    }
 
     useEffect(() => {
 
-
+        GetSeason()
         ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
-    })
+    }, [])
 
     return (
         <SafeAreaView style={styles.container}>
@@ -27,13 +42,17 @@ export default function infoSeries({ navigation, route }: any) {
                     setModalVisible(!modalVisible);
                 }}>
                 <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <Text style={styles.modalText}>Hello World!</Text>
-                        <TouchableOpacity
-                            style={[styles.button, styles.buttonClose]}
+                    <View>
+                        <FlatList
+                         data={SeasonFlatList}
+                        keyExtractor={(seasons:any)=>seasons.id}
+                         renderItem={(seasons)=>(
+                         <TouchableOpacity
+                            style={styles.modalView}
                             onPress={() => setModalVisible(!modalVisible)}>
-                            <Text style={styles.textStyle}>Hide Modal</Text>
+                            <Text style={styles.textStyle}>{seasons.item.name}</Text>
                         </TouchableOpacity>
+                         )}/>
                     </View>
                 </View>
             </Modal>
@@ -58,7 +77,7 @@ export default function infoSeries({ navigation, route }: any) {
                         </View>
                         <Text style={styles.description}>{description}</Text>
                         <TouchableOpacity
-                            onPress={() => setModalVisible(!modalVisible)}
+                            onPress={() => GetSeason()}
                             style={styles.btnTemporadas}>
                             <Text style={styles.TextTemporadas}>1000 Temporada</Text>
                         </TouchableOpacity>
@@ -193,6 +212,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
         textAlign: 'center',
+        fontSize:16
     },
     modalText: {
         marginBottom: 15,
