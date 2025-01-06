@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, StatusBar, Modal, TouchableOpacity, ImageBackground, SafeAreaView, ActivityIndicator, FlatList, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, Modal, TouchableOpacity, ImageBackground, SafeAreaView, ActivityIndicator, FlatList, ScrollView, Pressable, Button } from 'react-native';
 import { Image } from 'expo-image';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as FileSystem from 'expo-file-system';
+import * as ScreenOrientation from 'expo-screen-orientation';
+import { TextInput } from 'react-native-gesture-handler';
 
 const Home: React.FC = ({ navigation }: any) => {
     const CountSelecao = Math.floor(Math.random() * 10)
@@ -26,6 +28,8 @@ const Home: React.FC = ({ navigation }: any) => {
     const [streamType, SetstreamType] = useState('')
     const [year, Setyear] = useState('')
     const [container_extension, Setcontainer_extension] = useState('')
+    const [isFocused, setIsFocused] = useState(false);
+    
 
     const getFileUri = (fileName: string) => `${FileSystem.documentDirectory}${fileName}`;
     const saveDataStream = async (fileName: string, data: object) => {
@@ -104,13 +108,13 @@ const Home: React.FC = ({ navigation }: any) => {
             if (Stream.num === CountSelecao && Stream.stream_icon != undefined) {
                 SetImageBanner(Stream.stream_icon)
                 SetTitle(Stream.title)
-                SetstreamId(Stream.item.stream_id)
-                Setdescription(Stream.item.plot)
-                Seturlhls(`${urlApiStream}/${Stream.item.stream_type}/${userApiStream}/${passwordApiStream}/${Stream.item.stream_id}.${Stream.item.container_extension}`)
-                SettypeUrl(Stream.item.container_extension)
-                SetstreamType(Stream.item.stream_type)
-                Setyear(Stream.item.year)
-                Setcontainer_extension(Stream.item.container_extension)
+                SetstreamId(Stream.stream_id)
+                Setdescription(Stream.plot)
+                Seturlhls(`${urlApiStream}/${Stream.stream_type}/${userApiStream}/${passwordApiStream}/${Stream.stream_id}.${Stream.container_extension}`)
+                SettypeUrl(Stream.container_extension)
+                SetstreamType(Stream.stream_type)
+                Setyear(Stream.year)
+                Setcontainer_extension(Stream.container_extension)
             }
         });
     }
@@ -125,9 +129,18 @@ const Home: React.FC = ({ navigation }: any) => {
         SetCountStream(CountStream + 10)
         console.log("Buscando filmes")
     }
+    const handleFocus = () => {
+        setIsFocused(true);
+        console.log('Componente recebeu foco!');
+      };
+      const handleBlur = () => {
+        setIsFocused(false);
+        console.log('Componente perdeu o foco!');
+      };
 
     useEffect(() => {
         const Main = async () => {
+            Login()
             let url = await AsyncStorage.getItem('url')
             let username = await AsyncStorage.getItem('username')
             let password = await AsyncStorage.getItem('password')
@@ -135,10 +148,10 @@ const Home: React.FC = ({ navigation }: any) => {
                 seturlApiStream(url)
                 setuserApiStream(username)
                 setpasswordApiStream(password)
+                GetUserNameLabel();
+                GetCategoriesStream()
             }
-            Login()
-            GetUserNameLabel();
-            GetCategoriesStream()
+              ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
         }
         Main()
     }, [])
@@ -153,7 +166,7 @@ const Home: React.FC = ({ navigation }: any) => {
         <ImageBackground style={styles.ImageBackgroundHome}
             blurRadius={100}
             source={{ uri: ImageBanner }}>
-            <SafeAreaView style={{ flex: 1 }}>
+            <SafeAreaView style={{ flex: 1,backgroundColor:'rgba(0, 0, 0, 0.76)' }}>
                 <StatusBar barStyle={'light-content'} />
                 <Modal
                     animationType="slide"
@@ -189,30 +202,31 @@ const Home: React.FC = ({ navigation }: any) => {
                         <View style={styles.ViewFlatLisr}>
                             <View
                                 style={styles.ImageInicioView}>
+                                <TouchableOpacity
+                                 style={styles.ImageInicio}
+                                  onPress={() => navigation.navigate('infoStream',
+                                    {
+                                        title: Title,
+                                        image: ImageBanner,
+                                        description: description,
+                                        urlhls: urlhls,
+                                        year: year,
+                                    }
+                                )}>
                                 <ImageBackground
                                     style={styles.ImageInicio}
                                     borderRadius={10}
                                     source={{ uri: ImageBanner }}>
                                     <Text style={styles.TxtTittleBanner}>{Title}</Text>
                                     <TouchableOpacity
-                                        onPress={() => navigation.name('infoStream',
-                                            {
-                                                streamId: streamId,
-                                                title: Title,
-                                                image: ImageBanner,
-                                                description: description,
-                                                urlhls: urlhls,
-                                                typeUrl: container_extension,
-                                                streamType: streamType,
-                                                year: year,
-                                                container_extension: container_extension
-                                            }
+                                        onPress={() => navigation.navigate('Player', { urlhls: urlhls}
                                         )}
                                         style={styles.btnAssitirBanner}>
                                         <FontAwesome5 name="play" size={20} color="black" />
                                         <Text style={styles.Textbanner}>Assistir</Text>
                                     </TouchableOpacity>
                                 </ImageBackground>
+                                </TouchableOpacity>
                             </View>
                             {
                                 DataCategoriesStream.map((categoria: any) => (
@@ -231,26 +245,27 @@ const Home: React.FC = ({ navigation }: any) => {
                                             maxToRenderPerBatch={10}
                                             removeClippedSubviews={true}
                                             renderItem={(Stream) => (
-                                                <View style={styles.StreamCard}>
-                                                    <TouchableOpacity onPress={() =>
+                                                <View style={styles.StreamCard}
+                                                >
+                                                    <Pressable
+                                                     onPress={() =>
                                                         navigation.navigate('infoStream',
                                                             {
-                                                                streamId: Stream.item.stream_id,
                                                                 title: Stream.item.title,
                                                                 image: Stream.item.stream_icon,
                                                                 description: Stream.item.plot,
                                                                 urlhls: `${urlApiStream}/${Stream.item.stream_type}/${userApiStream}/${passwordApiStream}/${Stream.item.stream_id}.${Stream.item.container_extension}`,
-                                                                typeUrl: Stream.item.container_extension,
-                                                                streamType: Stream.item.stream_type,
                                                                 year: Stream.item.year,
-                                                                container_extension: Stream.item.container_extension
-                                                            })}>
+                                                            })}
+                                                            onFocus={handleFocus}>
+                                                      
                                                         <Image
+                                                        
                                                             source={{ uri: Stream.item.stream_icon }}
                                                             style={styles.StreamImage}
                                                             cachePolicy={'memory-disk'}
                                                         />
-                                                    </TouchableOpacity>
+                                                    </Pressable>
                                                 </View>
                                             )}
                                         />
@@ -378,7 +393,7 @@ const styles = StyleSheet.create({
         width: 100,
         height: 150,
         borderRadius: 5,
-        backgroundColor: "rgba(0, 0, 0, 0.75)"
+       
     },
     selecaoItens: {
         flexDirection: 'row',

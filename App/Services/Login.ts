@@ -1,15 +1,6 @@
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export const UserLogged = async () => {
-   //await AsyncStorage.clear()
-    const json = await AsyncStorage.getItem('userInfo')
-    const data = json != null ? JSON.parse(json) : null;
-    const result = data != null ? true : false
-    return result
-}
-
-
 export const LoginUserStream = async (username:any, user: any, password: any, url: any) => {
     try {
         const urlApi = `${url}/player_api.php?username=${user}&password=${password}`;

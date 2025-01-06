@@ -36,9 +36,6 @@
         "READ_EXTERNAL_STORAGE",
         "WRITE_EXTERNAL_STORAGE"
       ],
-      "android": {
-      "usesCleartextTraffic": true
-    },
       "package": "com.adrianosena.asxstramiptv"
     },
     "web": {
@@ -48,6 +45,24 @@
       "eas": {
         "projectId": "a1b839e7-3713-426f-8a9a-8e0ebca4eba5"
       }
-    }
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          },
+          "ios": {
+            "supportsTablet": true,
+            "infoPlist": {
+              "NSAppTransportSecurity": {
+                "NSAllowsArbitraryLoads": true
+              }
+            }
+          }
+        }
+      ]
+    ]
   }
 }

@@ -10,6 +10,7 @@ import Feather from '@expo/vector-icons/Feather';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import infoStream from './App/Pages/infoStream';
 import { Player } from './App/Pages/Player';
+import infoSeries from './App/Pages/InfoSeries';
 
 
 
@@ -62,6 +63,10 @@ const App: React.FC = ({ navigation }: any) => {
         <Stack.Screen
           name='Player'
           component={Player}
+          options={{ headerShown: false }} />
+          <Stack.Screen
+          name='infoSeries'
+          component={infoSeries}
           options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>

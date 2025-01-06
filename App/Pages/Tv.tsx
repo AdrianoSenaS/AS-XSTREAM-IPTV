@@ -136,7 +136,7 @@ const Tv: React.FC = ({ navigation }: any) => {
         <ImageBackground style={styles.ImageBackgroundHome}
             blurRadius={100}
             source={{ uri: ImageBanner }}>
-            <SafeAreaView style={{ flex: 1 }}>
+            <SafeAreaView style={{ flex: 1,backgroundColor:'rgba(0, 0, 0, 0.76)' }}>
                 <StatusBar barStyle={'light-content'} />
                 <View style={styles.container}>
                     <View style={styles.navbar}>

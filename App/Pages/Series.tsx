@@ -141,7 +141,7 @@ const Series: React.FC = ({ navigation }: any) => {
                             <Text style={styles.TextSelecaoItens}>Categorias</Text>
                         </TouchableOpacity>
                     </View>
-                    <ScrollView style={{ flex: 1, width: '100%' }}>
+                    <ScrollView style={{ flex: 1, width: '100%',backgroundColor:'rgba(0, 0, 0, 0.76)' }}>
                         <View style={styles.ViewFlatLisr}>
                             <View
                                 style={styles.ImageInicioView}>
@@ -174,13 +174,25 @@ const Series: React.FC = ({ navigation }: any) => {
                                             maxToRenderPerBatch={10}
                                             removeClippedSubviews={true}
                                             renderItem={(Stream) => (
-                                                <View style={styles.StreamCard}>
+                                                <TouchableOpacity
+                                                onPress={()=>navigation.navigate('infoSeries',
+                                                    {
+                                                        series_id:Stream.item.series_id,
+                                                        title:Stream.item.title, 
+                                                        image:Stream.item.cover,
+                                                        description:Stream.item.plot,
+                                                        year:Stream.item.year
+                                                    }
+
+                                                 ) }>
+                                                    <View style={styles.StreamCard}>
                                                     <Image
                                                         source={{ uri: Stream.item.cover }}
                                                         style={styles.StreamImage}
                                                         cachePolicy={'memory-disk'}
                                                     />
                                                 </View>
+                                                </TouchableOpacity>
                                             )}
                                         />
                                     </View>
