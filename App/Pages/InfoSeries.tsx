@@ -8,11 +8,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function infoSeries({ navigation, route }: any) {
     const { series_id, title, image, description, year, } = route.params
-    const [urlhls, Seturlhls] = useState(null)
+    const [urlhls, Seturlhls] = useState(String)
     const [modalVisible, setModalVisible] = useState(false);
-    const [SeasonFlatList, SetSeasonFlatList] = useState<[]>([])
-    const [EpisodesFlatlist, SetEpisodesFlatlist] = useState<[]>([])
+    const [SeasonFlatList, SetSeasonFlatList] = useState<any>([])
+    const [EpisodesFlatlist, SetEpisodesFlatlist] = useState<any>([])
     const [Season, SetSeason] = useState(String)
+    const [user, SetUser] = useState('')
+    const [Pass, SetPass] = useState('')
 
 
     const GetSeason = async ()=>{
@@ -21,28 +23,34 @@ export default function infoSeries({ navigation, route }: any) {
         const password = await AsyncStorage.getItem('password')
         if (url != null && username != null && password != null) {
             const urlApi = `${url}/player_api.php?username=${username}&password=${password}&action=`
-                    const response = await fetch(`${urlApi}get_series_info&series_id=${series_id}`)
+            const response = await fetch(`${urlApi}get_series_info&series_id=${series_id}`)
+            SetUser(username)
+            SetPass(password)
             const Season = await response.json();
+            Seturlhls(url)
+            let AllEp:any[] = [] 
+            let AllSe:any[] =[]
 
-            Season.seasons.forEach((season: any) => {
-                if (season.season_number === 1) {
-
-                    SetSeason(season.name)
-                    console.log(series_id)
-                }
-
-            })
             Object.keys(Season.episodes).forEach(season => {
-                const episodes = Season.episodes[season];
-                episodes.forEach((episode: any) => {
-                   // console.log(`Temporada: ${season}, Episódio: ${episode.episode_num}, ID: ${episode.id}`);
+                AllSe.push({"season":season})
+                if(season === "1"){
+                    SetSeason(season)
+                }
+                Season.episodes[season].forEach((ep:any) => {
+                  
+                    AllEp.push({
+                        "id":ep.id,
+                        "episode_num":ep.episode_num,
+                        "title":ep.title,
+                        "container_extension":ep.container_extension,
+                         "season":ep.season
+                    })
                 });
-            });
-            
-            
-            SetSeasonFlatList(Season.seasons)
-            SetEpisodesFlatlist(Season.episodes)
-           
+               
+            })
+            SetSeasonFlatList(AllSe)
+            SetEpisodesFlatlist(AllEp)
+            console.log(AllEp)
         }
     }
 
@@ -66,12 +74,12 @@ export default function infoSeries({ navigation, route }: any) {
                         <FlatList
                             style={{ width: '100%', borderRadius: 5 }}
                          data={SeasonFlatList}
-                        keyExtractor={(seasons:any)=>seasons.id}
+                        keyExtractor={(item:any)=>item.season}
                          renderItem={(seasons)=>(
                          <TouchableOpacity
                             style={styles.modalView}
-                            onPress={() => setModalVisible(!modalVisible)}>
-                            <Text style={styles.textStyle}>{seasons.item.name}</Text>
+                            onPress={() => {SetSeason(seasons.item.season), setModalVisible(!modalVisible)} }>
+                            <Text style={styles.textStyle}>{`${seasons.item.season}° Temporada`}</Text>
                         </TouchableOpacity>
                          )}/>
                     </View>
@@ -86,16 +94,7 @@ export default function infoSeries({ navigation, route }: any) {
                     <View style={styles.info}>
                         <Text style={styles.title}>{title}</Text>
                         <Text style={styles.releaseDate}>{`Lançado em: ${year} `}</Text>
-                        <View style={styles.buttons}>
-                            <TouchableOpacity onPress={() => navigation.navigate('Player', { urlhls: urlhls })} style={styles.btnAssitirBanner}>
-                                <FontAwesome5 name="play" size={20} color="black" />
-                                <Text style={styles.Textbanner}>Assistir</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => Alert.alert("NotificaÇão", "Em breve")} style={styles.btnAssitirBannerD}>
-                                <FontAwesome5 name="arrow-down" size={24} color="#fff" />
-                                <Text style={styles.TextbannerD}>Baixar</Text>
-                            </TouchableOpacity>
-                        </View>
+                       
                         <Text style={styles.description}>{description}</Text>
                         {
                             (() => {
@@ -104,13 +103,29 @@ export default function infoSeries({ navigation, route }: any) {
                                         <TouchableOpacity
                                             onPress={() => setModalVisible(!modalVisible)}
                                             style={styles.btnTemporadas}>
-                                            <Text style={styles.TextTemporadas}>{Season}</Text>
+                                            <Text style={styles.TextTemporadas}>{`${Season}° Temporada`}</Text>
                                         </TouchableOpacity>
                                     )
                                 }
                             })()
                         }
-                        
+                        <FlatList
+                            style={{ width: '100%', borderRadius: 5 }}
+                         data={EpisodesFlatlist}
+                        keyExtractor={(item:any)=>item.id}
+                         renderItem={(episodes)=>{
+                            if(episodes.item.season == Season)
+                            {
+                                return(
+                                    <TouchableOpacity
+                                    onPress={()=> navigation.navigate('Player', { urlhls:`${urlhls}/series/${user}/${Pass}/${episodes.item.id}${episodes.item.container_extension}`})}
+                                    style={styles.modalView}>
+                                    <Text style={styles.TextTemporadas}>{episodes.item.title}</Text>
+                                    </TouchableOpacity>
+                                )
+                            }
+                            return null;
+                         }}/>
                     </View>
                 </ScrollView>
             </ImageBackground>
@@ -216,7 +231,7 @@ const styles = StyleSheet.create({
     modalView: {
         padding:20,
         borderBottomWidth: 1,
-        borderColor: '#2A3E48',
+        borderColor: 'rgb(59, 59, 59)',
         backgroundColor: 'rgb(36, 36, 36)',
         shadowColor: '#000',
         shadowOffset: {
@@ -241,11 +256,9 @@ const styles = StyleSheet.create({
     textStyle: {
         color: 'white',
         fontWeight: 'bold',
-        textAlign: 'center',
         fontSize:16
     },
     modalText: {
         marginBottom: 15,
-        textAlign: 'center',
     },
 });
