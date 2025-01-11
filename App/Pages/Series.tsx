@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, StatusBar, TouchableOpacity, ImageBackground, SafeAreaView, ActivityIndicator, FlatList, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, TouchableOpacity, ImageBackground, SafeAreaView, ActivityIndicator, FlatList, ScrollView, Modal, TextInput, Pressable } from 'react-native';
 import { Image } from 'expo-image';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
@@ -9,12 +9,31 @@ import * as FileSystem from 'expo-file-system';
 const Series: React.FC = ({ navigation }: any) => {
     const CountSelecao = Math.floor(Math.random() * 10)
     const [CountStream, SetCountStream] = useState(10)
-    const [Loanding, SetLoanding] = useState(false)
+    const [Loanding, SetLoanding] = useState(true)
     const [UserNameLabelScree, SetUserNameLabelScree] = useState('')
     const [ImageBanner, SetImageBanner] = useState('');
     const [Title, SetTitle] = useState("")
     const [DataCategoriesStream, SetDataCategoriesStream] = useState<[]>([])
     const [DatasStream, SetDatasStream] = useState<[]>([])
+    const [categoriaSelected, SetcategoriaSelected] = useState(false)
+    const [categoriaModalID, SetcategoriaModalID] = useState('')
+    const [categoriaModalName, SetcategoriaModalName] = useState('')
+    const [searchText, setSearchText] = useState('');
+    const [filteredData, setFilteredData] = useState();
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalVisible1, setModalVisible1] = useState(false);
+    const [urlApiStream, seturlApiStream] = useState('')
+    const [userApiStream, setuserApiStream] = useState('')
+    const [passwordApiStream, setpasswordApiStream] = useState('')
+    const [streamId, SetstreamId] = useState('')
+    const [description, Setdescription] = useState('')
+    const [urlhls, Seturlhls] = useState('')
+    const [typeUrl, SettypeUrl] = useState('')
+    const [streamType, SetstreamType] = useState('')
+    const [year, Setyear] = useState('')
+    const [container_extension, Setcontainer_extension] = useState('')
+    const [SerieId, SetSerieId] = useState('')
+
 
     const getFileUri = (fileName: string) => `${FileSystem.documentDirectory}${fileName}`;
     const saveDataStream = async (fileName: string, data: object) => {
@@ -39,6 +58,16 @@ const Series: React.FC = ({ navigation }: any) => {
         }
     };
 
+    // Função de pesquisa
+    const handleSearch = (text: string) => {
+        setSearchText(text);
+        // Filtra os itens que contêm o texto da pesquisa
+        const filtered: any = DatasStream.filter((item: any) =>
+            item.title.toLowerCase().includes(text.toLowerCase())
+        );
+        setFilteredData(filtered); // Atualiza o estado com os itens filtrados
+    };
+
     const Login = async () => {
         const userDb = await AsyncStorage.getItem('username')
         if (userDb === null) {
@@ -56,15 +85,15 @@ const Series: React.FC = ({ navigation }: any) => {
 
     const GetCategoriesStream = async () => {
         try {
-            const StreamData = await readDataStream('Series.json')
-            const StreamDataCategories = await readDataStream('categoriesSeries.json')
+            const StreamData = await readDataStream('Series.json,')
+            const StreamDataCategories = await readDataStream('categoriesSeries.json,')
             if (StreamData !== null && StreamDataCategories !== null) {
                 SetDataCategoriesStream(StreamDataCategories)
                 SetDatasStream(StreamData)
+                setFilteredData(StreamData)
                 Destaque(StreamData)
                 console.log('Filmes Exibido localmente')
             } else {
-                SetLoanding(true)
                 let url = await AsyncStorage.getItem('url')
                 let username = await AsyncStorage.getItem('username')
                 let password = await AsyncStorage.getItem('password')
@@ -76,9 +105,10 @@ const Series: React.FC = ({ navigation }: any) => {
                     const Stream = await resposeStream.json()
                     SetDataCategoriesStream(categoria)
                     SetDatasStream(Stream)
+                    setFilteredData(Stream)
                     Destaque(Stream)
-                    saveDataStream('categoriesSeries.json', categoria)
-                    saveDataStream('Series.json', Stream)
+                    // saveDataStream('categoriesSeries.json', categoria)
+                    // saveDataStream('Series.json', Stream)
                     SetLoanding(false)
                 }
             }
@@ -90,9 +120,12 @@ const Series: React.FC = ({ navigation }: any) => {
 
     const Destaque = (StreamData: any) => {
         StreamData.forEach((Stream: any) => {
-            if (Stream.num === CountSelecao && Stream.stream_icon != undefined) {
-                SetImageBanner(Stream.stream_icon)
+            if (Stream.num === CountSelecao && Stream.cover != undefined) {
+                SetImageBanner(Stream.cover)
                 SetTitle(Stream.title)
+                Setdescription(Stream.plot)
+                Setyear(Stream.year)
+                SetSerieId(Stream.series_id)
             }
         });
     }
@@ -123,39 +156,265 @@ const Series: React.FC = ({ navigation }: any) => {
                 <ActivityIndicator size="large" color={'#fff'} />
             </SafeAreaView>
         )
+    if (categoriaSelected === true) {
+        return (
+            <ImageBackground style={styles.ImageBackgroundHome}
+                blurRadius={100}
+                source={{ uri: ImageBanner }}>
+                <SafeAreaView style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.76)' }}>
+                    <StatusBar barStyle={'light-content'} />
+                    <Modal
+                        style={{ flex: 1 }}
+                        animationType='slide'
+                        transparent={true}
+                        visible={modalVisible1}
+                        onRequestClose={() => {
+                            setModalVisible1(!modalVisible1);
+                        }}>
+                        <View style={styles.centeredView}>
+                            <View style={{ height: '100%' }}>
+                                <TextInput
+                                    style={{ width: '100%', height: 50, backgroundColor: '#fff', color: '#000' }}
+                                    placeholder="Pesquisar..."
+                                    value={searchText}
+                                    onChangeText={handleSearch} // Atualiza a pesquisa sempre que o texto mudar
+                                />
+                                <FlatList
+                                    style={{ width: '100%', borderRadius: 5 }}
+                                    data={filteredData}
+                                    keyExtractor={(item: any) => item.series_id}
+                                    renderItem={(Stream) => (
+                                        <TouchableOpacity
+                                            style={styles.modalView}
+                                            onPress={() => navigation.navigate('infoSeries',
+                                                {
+                                                    series_id: Stream.item.series_id,
+                                                    title: Stream.item.title,
+                                                    image: Stream.item.cover,
+                                                    description: Stream.item.plot,
+                                                    year: Stream.item.year
+                                                }
+
+                                            )}>
+                                            <Text style={styles.textStyle}>{Stream.item.title}</Text>
+                                        </TouchableOpacity>
+                                    )} />
+                            </View>
+                        </View>
+                    </Modal>
+                    <Modal
+                        animationType='slide'
+                        transparent={true}
+                        visible={modalVisible}
+                        onRequestClose={() => {
+                            setModalVisible(!modalVisible);
+                        }}>
+                        <View style={styles.centeredView}>
+                            <View>
+                                <FlatList
+                                    style={{ width: '100%', borderRadius: 5 }}
+                                    data={DataCategoriesStream}
+                                    keyExtractor={(item: any) => item.category_id}
+                                    renderItem={(categoria) => (
+                                        <TouchableOpacity
+                                            style={styles.modalView}
+                                            onPress={() => { SetcategoriaModalID(categoria.item.category_id), SetcategoriaModalName(categoria.item.category_name), setModalVisible(!modalVisible), SetcategoriaSelected(true) }}>
+                                            <Text style={styles.textStyle}>{categoria.item.category_name}</Text>
+                                        </TouchableOpacity>
+                                    )} />
+                            </View>
+                        </View>
+                    </Modal>
+                    <View style={styles.container}>
+                        <View style={styles.navbar}>
+                            <Text style={styles.textColorTitle}>{UserNameLabelScree}</Text>
+                            <TouchableOpacity style={{ marginRight: 20 }}
+                                onPress={() => setModalVisible1(!modalVisible1)}>
+                                <AntDesign name="search1" size={30} color={'#fff'} />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.selecaoItens}>
+                            <TouchableOpacity style={styles.btnSelecaoItens}
+                                onPress={() => SetcategoriaSelected(false)}>
+                                <AntDesign name="close" size={20} color={'#fff'} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.btnSelecaoItens}
+                                onPress={() => setModalVisible(!modalVisible)}>
+                                <Text style={styles.TextSelecaoItens}>Categorias</Text>
+                            </TouchableOpacity>
+
+                        </View>
+                        <ScrollView style={{ flex: 1, width: '100%' }}>
+                            <View style={styles.ViewFlatLisr}>
+                                <View style={{ width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                                    <Text style={styles.TextCategories}>{categoriaModalName}</Text>
+                                    <FlatList
+
+                                        data={GetStreamCategorieID(categoriaModalID) || []}
+                                        keyExtractor={(Stream: any) => Stream.num}
+                                        horizontal={false}
+                                        numColumns={3}
+                                        nestedScrollEnabled={true}
+                                        onEndReached={GetStreamList}
+                                        onEndReachedThreshold={0.1}
+                                        initialNumToRender={5}
+                                        maxToRenderPerBatch={10}
+                                        removeClippedSubviews={true}
+                                        renderItem={(Stream) => (
+                                            <View
+                                                style={{ justifyContent: 'center', alignItems: 'flex-start' }}
+                                            >
+                                                <Pressable
+                                                    style={{ margin: 10 }}
+                                                    onPress={() => navigation.navigate('infoSeries',
+                                                        {
+                                                            series_id: Stream.item.series_id,
+                                                            title: Stream.item.title,
+                                                            image: Stream.item.cover,
+                                                            description: Stream.item.plot,
+                                                            year: Stream.item.year
+                                                        }
+
+                                                    )}>
+                                                    <View style={styles.StreamCard}>
+                                                        <Image
+                                                            source={{ uri: Stream.item.cover }}
+                                                            style={styles.StreamImage}
+                                                            cachePolicy={'memory-disk'}
+                                                        />
+                                                    </View>
+
+                                                </Pressable>
+                                            </View>
+                                        )}
+                                    />
+                                </View>
+                            </View>
+                        </ScrollView>
+                    </View>
+                </SafeAreaView>
+            </ImageBackground>
+        )
+    }
     return (
         <ImageBackground style={styles.ImageBackgroundHome}
             blurRadius={100}
             source={{ uri: ImageBanner }}>
-            <SafeAreaView style={{ flex: 1 }}>
+            <SafeAreaView style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.76)' }}>
                 <StatusBar barStyle={'light-content'} />
+                <Modal
+                    style={{ flex: 1 }}
+                    animationType='slide'
+                    transparent={true}
+                    visible={modalVisible1}
+                    onRequestClose={() => {
+                        setModalVisible1(!modalVisible1);
+                    }}>
+                    <View style={styles.centeredView}>
+                        <View style={{ height: '100%' }}>
+                            <TextInput
+                                style={{ width: '100%', height: 50, backgroundColor: '#fff', color: '#000' }}
+                                placeholder="Pesquisar..."
+                                value={searchText}
+                                onChangeText={handleSearch} // Atualiza a pesquisa sempre que o texto mudar
+                            />
+                            <FlatList
+                                style={{ width: '100%', borderRadius: 5 }}
+                                data={filteredData}
+                                keyExtractor={(item: any) => item.series_id}
+                                renderItem={(Stream) => (
+                                    <TouchableOpacity
+                                        style={styles.modalView}
+                                        onPress={() => navigation.navigate('infoSeries',
+                                            {
+                                                series_id: Stream.item.series_id,
+                                                title: Stream.item.title,
+                                                image: Stream.item.cover,
+                                                description: Stream.item.plot,
+                                                year: Stream.item.year
+                                            }
+
+                                        )}>
+                                        <Text style={styles.textStyle}>{Stream.item.title}</Text>
+                                    </TouchableOpacity>
+                                )} />
+                        </View>
+                    </View>
+                </Modal>
+                <Modal
+                    animationType='slide'
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => {
+                        setModalVisible(!modalVisible);
+                    }}>
+                    <View style={styles.centeredView}>
+                        <View>
+                            <FlatList
+                                style={{ width: '100%', borderRadius: 5 }}
+                                data={DataCategoriesStream}
+                                keyExtractor={(item: any) => item.category_id}
+                                renderItem={(categoria) => (
+                                    <TouchableOpacity
+                                        style={styles.modalView}
+                                        onPress={() => { SetcategoriaModalID(categoria.item.category_id), SetcategoriaModalName(categoria.item.category_name), setModalVisible(!modalVisible), SetcategoriaSelected(true) }}>
+                                        <Text style={styles.textStyle}>{categoria.item.category_name}</Text>
+                                    </TouchableOpacity>
+                                )} />
+                        </View>
+                    </View>
+                </Modal>
                 <View style={styles.container}>
                     <View style={styles.navbar}>
                         <Text style={styles.textColorTitle}>{UserNameLabelScree}</Text>
-                        <TouchableOpacity style={{ marginRight: 20 }}>
+                        <TouchableOpacity style={{ marginRight: 20 }}
+                            onPress={() => setModalVisible1(!modalVisible1)}>
                             <AntDesign name="search1" size={30} color={'#fff'} />
                         </TouchableOpacity>
                     </View>
                     <View style={styles.selecaoItens}>
-                        <TouchableOpacity style={styles.btnSelecaoItens}>
+                        <TouchableOpacity style={styles.btnSelecaoItens}
+                            onPress={() => setModalVisible(!modalVisible)}>
                             <Text style={styles.TextSelecaoItens}>Categorias</Text>
                         </TouchableOpacity>
                     </View>
-                    <ScrollView style={{ flex: 1, width: '100%',backgroundColor:'rgba(0, 0, 0, 0.76)' }}>
+                    <ScrollView style={{ flex: 1, width: '100%' }}>
                         <View style={styles.ViewFlatLisr}>
                             <View
                                 style={styles.ImageInicioView}>
-                                <ImageBackground
+                                <TouchableOpacity
                                     style={styles.ImageInicio}
-                                    borderRadius={10}
-                                    source={{ uri: ImageBanner }}>
-                                    <Text style={styles.TxtTittleBanner}>{Title}</Text>
-                                    <TouchableOpacity
-                                        style={styles.btnAssitirBanner}>
-                                        <FontAwesome5 name="play" size={20} color="black" />
-                                        <Text style={styles.Textbanner}>Assistir</Text>
-                                    </TouchableOpacity>
-                                </ImageBackground>
+                                    onPress={() => navigation.navigate('infoStream',
+                                        {
+                                            title: Title,
+                                            image: ImageBanner,
+                                            description: description,
+                                            urlhls: urlhls,
+                                            year: year,
+                                        }
+                                    )}>
+                                    <ImageBackground
+                                        style={styles.ImageInicio}
+                                        borderRadius={10}
+                                        source={{ uri: ImageBanner }}>
+                                        <Text style={styles.TxtTittleBanner}>{Title}</Text>
+                                        <TouchableOpacity
+                                            onPress={() => navigation.navigate('infoSeries',
+                                                {
+                                                    series_id: SerieId,
+                                                    title: Title,
+                                                    image: ImageBanner,
+                                                    description: description,
+                                                    year: year
+                                                }
+
+                                            )}
+                                            style={styles.btnAssitirBanner}>
+                                            <FontAwesome5 name="play" size={20} color="black" />
+                                            <Text style={styles.Textbanner}>Assistir</Text>
+                                        </TouchableOpacity>
+                                    </ImageBackground>
+                                </TouchableOpacity>
                             </View>
                             {
                                 DataCategoriesStream.map((categoria: any) => (
@@ -174,25 +433,29 @@ const Series: React.FC = ({ navigation }: any) => {
                                             maxToRenderPerBatch={10}
                                             removeClippedSubviews={true}
                                             renderItem={(Stream) => (
-                                                <TouchableOpacity
-                                                onPress={()=>navigation.navigate('infoSeries',
-                                                    {
-                                                        series_id:Stream.item.series_id,
-                                                        title:Stream.item.title, 
-                                                        image:Stream.item.cover,
-                                                        description:Stream.item.plot,
-                                                        year:Stream.item.year
-                                                    }
+                                                <View style={styles.StreamCard}
+                                                >
+                                                    <Pressable
+                                                        onPress={() => navigation.navigate('infoSeries',
+                                                            {
+                                                                series_id: Stream.item.series_id,
+                                                                title: Stream.item.title,
+                                                                image: Stream.item.cover,
+                                                                description: Stream.item.plot,
+                                                                year: Stream.item.year
+                                                            }
 
-                                                 ) }>
-                                                    <View style={styles.StreamCard}>
-                                                    <Image
-                                                        source={{ uri: Stream.item.cover }}
-                                                        style={styles.StreamImage}
-                                                        cachePolicy={'memory-disk'}
-                                                    />
+                                                        )}>
+                                                        <View style={styles.StreamCard}>
+                                                            <Image
+                                                                source={{ uri: Stream.item.cover }}
+                                                                style={styles.StreamImage}
+                                                                cachePolicy={'memory-disk'}
+                                                            />
+                                                        </View>
+
+                                                    </Pressable>
                                                 </View>
-                                                </TouchableOpacity>
                                             )}
                                         />
                                     </View>
@@ -224,7 +487,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row',
-        margin: 20,
+        marginTop: 10,
+        marginBottom: 10,
         backgroundColor: "rgba(0, 0, 0, 0)"
     },
     textColorTitle: {
@@ -318,7 +582,7 @@ const styles = StyleSheet.create({
         width: 100,
         height: 150,
         borderRadius: 5,
-        backgroundColor: "rgba(0, 0, 0, 0.75)"
+
     },
     selecaoItens: {
         flexDirection: 'row',
@@ -340,7 +604,46 @@ const styles = StyleSheet.create({
         paddingBottom: 6,
         paddingLeft: 15,
         paddingRight: 15
-    }
+    },
+    centeredView: {
+        flex: 1,
+        padding: 10,
+        justifyContent: 'center',
+        backgroundColor: 'rgb(41, 41, 41)'
+    },
+    modalView: {
+        padding: 20,
+        borderBottomWidth: 1,
+        borderColor: 'rgb(59, 59, 59)',
+        backgroundColor: 'rgb(36, 36, 36)',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+    },
+    button: {
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2,
+    },
+    buttonOpen: {
+        backgroundColor: '#F194FF',
+    },
+    buttonClose: {
+        backgroundColor: '#2196F3',
+    },
+    textStyle: {
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: 16
+    },
+    modalText: {
+        marginBottom: 15,
+    },
 });
 
 const StyleLoading = StyleSheet.create({

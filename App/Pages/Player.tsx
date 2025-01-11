@@ -1,21 +1,31 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import { ResizeMode, Video } from 'expo-av';
+import { useFocusEffect } from '@react-navigation/native';
 
 export const Player = ({ navigation, route }: any) => {
-  const { urlhls} = route.params;
+  const { urlhls } = route.params;
   const [loading, setLoading] = useState(true);
   const videoRef = useRef<Video>(null)
 
-  const AutoPLay =()=>{
-      videoRef.current?.playAsync()
-      videoRef.current?._setFullscreen(true)
-      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
-      setLoading(false)
+  const AutoPLay = () => {
+    videoRef.current?.playAsync()
+    videoRef.current?._setFullscreen(true)
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
+    setLoading(false)
   }
 
-
+  useFocusEffect(
+        useCallback(() => {
+         
+          ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP); 
+          // Retorne uma função para executar algo quando a tela perder o foco
+          return () => {
+           
+            ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
+          };
+        }, []));
   // Forçar a orientação para paisagem
   useEffect(() => {
     console.log(urlhls)
@@ -23,16 +33,16 @@ export const Player = ({ navigation, route }: any) => {
 
   return (
     <View style={styles.contentContainer}>
-     <Video
-     ref={videoRef}
-     onLoad={()=>AutoPLay()}
-     style={styles.video}
-     source={{uri:urlhls}}
-     useNativeControls
-     resizeMode={ResizeMode.STRETCH}
-     shouldPlay
-     onPlaybackStatusUpdate={()=>{}}
-     />
+      <Video
+        ref={videoRef}
+        onLoad={() => AutoPLay()}
+        style={styles.video}
+        source={{ uri: urlhls }}
+        useNativeControls
+        resizeMode={ResizeMode.STRETCH}
+        shouldPlay
+        onPlaybackStatusUpdate={() => { }}
+      />
       {loading && (
         <ActivityIndicator size="large" color="#fff" style={styles.loading} />
       )}

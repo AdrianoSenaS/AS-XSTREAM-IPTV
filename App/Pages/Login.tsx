@@ -27,7 +27,7 @@ const Login: React.FC = ({ navigation }: any) => {
             routes: [{ name: 'Tabs' }]
         })
     }
-    
+
     if (Loanding === true) {
         return (
 

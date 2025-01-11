@@ -1,31 +1,36 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert, ImageBackground } from 'react-native';
 import { Image } from 'expo-image';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as ScreenOrientation from 'expo-screen-orientation';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function infoStream({ navigation, route }: any) {
-    const {title, image, description, urlhls, year, } = route.params
+    const { title, image, description, urlhls, year, } = route.params
 
-
-    useEffect(()=>{
-        ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
-    })
-
+    useFocusEffect(
+        useCallback(() => {
+            ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP); 
+    
+          // Retorne uma função para executar algo quando a tela perder o foco
+          return () => {
+            ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP); 
+          };
+        }, []));
     return (
         <SafeAreaView style={styles.container}>
             <ImageBackground
                 source={{ uri: image }}
                 blurRadius={100}
                 style={styles.container}>
-                <ScrollView style={{ flex: 1, backgroundColor:'rgba(0, 0, 0, 0.76)' }}>
+                <ScrollView style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.76)' }}>
                     <Image source={{ uri: image }} style={styles.image} cachePolicy={'memory-disk'} />
                     <View style={styles.info}>
                         <Text style={styles.title}>{title}</Text>
                         <Text style={styles.releaseDate}>{`Lançado em: ${year} `}</Text>
                         <View style={styles.buttons}>
-                            <TouchableOpacity onPress={() => navigation.navigate('Player', { urlhls: urlhls})} style={styles.btnAssitirBanner}>
+                            <TouchableOpacity onPress={() => navigation.navigate('Player', { urlhls: urlhls })} style={styles.btnAssitirBanner}>
                                 <FontAwesome5 name="play" size={20} color="black" />
                                 <Text style={styles.Textbanner}>Assistir</Text>
                             </TouchableOpacity>
