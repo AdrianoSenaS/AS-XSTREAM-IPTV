@@ -10,24 +10,44 @@ export default function infoSeries({ navigation, route }: any) {
     const { series_id, title, image, description, year, } = route.params
     const [urlhls, Seturlhls] = useState(null)
     const [modalVisible, setModalVisible] = useState(false);
-    const [SeasonFlatList, SetSeasonFlatList] =  useState<[]>([])
+    const [SeasonFlatList, SetSeasonFlatList] = useState<[]>([])
+    const [EpisodesFlatlist, SetEpisodesFlatlist] = useState<[]>([])
+    const [Season, SetSeason] = useState(String)
 
 
     const GetSeason = async ()=>{
-        let url = await AsyncStorage.getItem('url')
-        let username = await AsyncStorage.getItem('username')
-        let password = await AsyncStorage.getItem('password')
+        const url = await AsyncStorage.getItem('url')
+        const username = await AsyncStorage.getItem('username')
+        const password = await AsyncStorage.getItem('password')
         if (url != null && username != null && password != null) {
             const urlApi = `${url}/player_api.php?username=${username}&password=${password}&action=`
                     const response = await fetch(`${urlApi}get_series_info&series_id=${series_id}`)
-                    const Season = await response.json();
+            const Season = await response.json();
+
+            Season.seasons.forEach((season: any) => {
+                if (season.season_number === 1) {
+
+                    SetSeason(season.name)
+                    console.log(series_id)
+                }
+
+            })
+            Object.keys(Season.episodes).forEach(season => {
+                const episodes = Season.episodes[season];
+                episodes.forEach((episode: any) => {
+                   // console.log(`Temporada: ${season}, Episódio: ${episode.episode_num}, ID: ${episode.id}`);
+                });
+            });
+            
+            
             SetSeasonFlatList(Season.seasons)
-            console.log(Season.seasons)
+            SetEpisodesFlatlist(Season.episodes)
+           
         }
     }
 
     useEffect(() => {
-
+        
         GetSeason()
         ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
     }, [])
@@ -44,6 +64,7 @@ export default function infoSeries({ navigation, route }: any) {
                 <View style={styles.centeredView}>
                     <View>
                         <FlatList
+                            style={{ width: '100%', borderRadius: 5 }}
                          data={SeasonFlatList}
                         keyExtractor={(seasons:any)=>seasons.id}
                          renderItem={(seasons)=>(
@@ -76,11 +97,20 @@ export default function infoSeries({ navigation, route }: any) {
                             </TouchableOpacity>
                         </View>
                         <Text style={styles.description}>{description}</Text>
-                        <TouchableOpacity
-                            onPress={() => GetSeason()}
-                            style={styles.btnTemporadas}>
-                            <Text style={styles.TextTemporadas}>1000 Temporada</Text>
-                        </TouchableOpacity>
+                        {
+                            (() => {
+                                if (Season !== '') {
+                                    return (
+                                        <TouchableOpacity
+                                            onPress={() => setModalVisible(!modalVisible)}
+                                            style={styles.btnTemporadas}>
+                                            <Text style={styles.TextTemporadas}>{Season}</Text>
+                                        </TouchableOpacity>
+                                    )
+                                }
+                            })()
+                        }
+                        
                     </View>
                 </ScrollView>
             </ImageBackground>
@@ -179,15 +209,15 @@ const styles = StyleSheet.create({
     },
     centeredView: {
         flex: 1,
+        padding:10,
         justifyContent: 'center',
-        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.76)'
     },
     modalView: {
-        margin: 20,
+        padding:20,
+        borderBottomWidth: 1,
+        borderColor: '#2A3E48',
         backgroundColor: 'rgb(36, 36, 36)',
-        borderRadius: 20,
-        padding: 35,
-        alignItems: 'center',
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
