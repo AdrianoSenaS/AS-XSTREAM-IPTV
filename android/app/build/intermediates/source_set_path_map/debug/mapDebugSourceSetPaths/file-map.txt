@@ -1,0 +1,89 @@
+com.adrianosena.asxstramiptv.app-graphics-path-1.0.1-0 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\0094a547bf4eed67772d092f4880caef\transformed\graphics-path-1.0.1\res
+com.adrianosena.asxstramiptv.app-glide-4.16.0-1 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\05f00484ddc3e53730452d39d831a44c\transformed\glide-4.16.0\res
+com.adrianosena.asxstramiptv.app-appcompat-1.6.1-2 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\066d0a679ecabea7c972c34a4e1b039b\transformed\appcompat-1.6.1\res
+com.adrianosena.asxstramiptv.app-ui-release-3 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\06e043acce416d1a75c2f308d67c2672\transformed\ui-release\res
+com.adrianosena.asxstramiptv.app-viewpager2-1.0.0-4 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\08aba25be74db752db6e64eac6b9892c\transformed\viewpager2-1.0.0\res
+com.adrianosena.asxstramiptv.app-autofill-1.1.0-5 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\09952cbb8b480e9f6678e90d9c1ad5d8\transformed\autofill-1.1.0\res
+com.adrianosena.asxstramiptv.app-react-android-0.76.5-debug-6 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\09e99889bdbc3a72b28a5d49d1ebcf4c\transformed\react-android-0.76.5-debug\res
+com.adrianosena.asxstramiptv.app-savedstate-1.2.1-7 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\0a6752e3a337d17a12270ef72fb2f18a\transformed\savedstate-1.2.1\res
+com.adrianosena.asxstramiptv.app-recyclerview-1.2.1-8 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\10119641ebf03a3dd053232b9e7bfde0\transformed\recyclerview-1.2.1\res
+com.adrianosena.asxstramiptv.app-media-1.4.3-9 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\10ae70c03480a02b5a108363a02d871e\transformed\media-1.4.3\res
+com.adrianosena.asxstramiptv.app-awebp-3.0.2-10 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\248ad808486aaabab7522819f33b105d\transformed\awebp-3.0.2\res
+com.adrianosena.asxstramiptv.app-exoplayer-ui-2.18.1-11 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\27375aea77b52b8197ce70655531eff3\transformed\exoplayer-ui-2.18.1\res
+com.adrianosena.asxstramiptv.app-core-1.13.1-12 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\275972b32a83e4f2805ae07f38088e4e\transformed\core-1.13.1\res
+com.adrianosena.asxstramiptv.app-savedstate-ktx-1.2.1-13 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\2908b51a81ba57a24f64b2eeab6ccf6b\transformed\savedstate-ktx-1.2.1\res
+com.adrianosena.asxstramiptv.app-lifecycle-viewmodel-ktx-2.8.3-14 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\300ab22c4e349428cfa838d975097083\transformed\lifecycle-viewmodel-ktx-2.8.3\res
+com.adrianosena.asxstramiptv.app-foundation-layout-release-15 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\32f6286f26f3818067b351d0fd38bf0e\transformed\foundation-layout-release\res
+com.adrianosena.asxstramiptv.app-profileinstaller-1.3.1-16 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\38618f0efbf35910e6bb27e7c9a4b9b4\transformed\profileinstaller-1.3.1\res
+com.adrianosena.asxstramiptv.app-material-1.6.1-17 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\3995c9104dcc8b6793e851c60ff65067\transformed\material-1.6.1\res
+com.adrianosena.asxstramiptv.app-animation-core-release-18 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\48eb8f37555d3a909b57483f5765830f\transformed\animation-core-release\res
+com.adrianosena.asxstramiptv.app-lifecycle-runtime-release-19 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\4d92d2a867e95cd3d518768869ec07be\transformed\lifecycle-runtime-release\res
+com.adrianosena.asxstramiptv.app-tracing-1.2.0-20 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\4fbff00e98ccf0ad7390f1a696becf32\transformed\tracing-1.2.0\res
+com.adrianosena.asxstramiptv.app-ui-geometry-release-21 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\511197602e80dafba23ecd1577f40fcc\transformed\ui-geometry-release\res
+com.adrianosena.asxstramiptv.app-annotation-experimental-1.4.1-22 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\55dd417798433298e24572e0e9052bc6\transformed\annotation-experimental-1.4.1\res
+com.adrianosena.asxstramiptv.app-swiperefreshlayout-1.1.0-23 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\57418af868197b3c2c553ff32598b0f3\transformed\swiperefreshlayout-1.1.0\res
+com.adrianosena.asxstramiptv.app-foundation-release-24 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\5a885084087397d58bd3134b9310c12a\transformed\foundation-release\res
+com.adrianosena.asxstramiptv.app-ui-unit-release-25 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\610bf12b2d6c0af86b618900c7707c75\transformed\ui-unit-release\res
+com.adrianosena.asxstramiptv.app-apng-3.0.2-26 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\6ad89943c6b2aa3e0b48364677d99429\transformed\apng-3.0.2\res
+com.adrianosena.asxstramiptv.app-glide-plugin-3.0.2-27 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\705e6baf5c76a16fc567b1d7ee4058ca\transformed\glide-plugin-3.0.2\res
+com.adrianosena.asxstramiptv.app-gif-3.0.2-28 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\70780ea7b3ea7abf94ea7c7670d104e9\transformed\gif-3.0.2\res
+com.adrianosena.asxstramiptv.app-animation-release-29 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\733cea9a63beb2d661fd5996e8702dba\transformed\animation-release\res
+com.adrianosena.asxstramiptv.app-exoplayer-core-2.18.1-30 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\75627e98b26a83181abb16db91201e77\transformed\exoplayer-core-2.18.1\res
+com.adrianosena.asxstramiptv.app-activity-1.7.2-31 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\76ac4592cde9f0c44bbf7f9bc569a453\transformed\activity-1.7.2\res
+com.adrianosena.asxstramiptv.app-transition-1.2.0-32 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\7973636d03c049ae67432cc4a30f12b2\transformed\transition-1.2.0\res
+com.adrianosena.asxstramiptv.app-lifecycle-livedata-2.8.3-33 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\7d3922c2e0cb62f2fb1a6e99d7512580\transformed\lifecycle-livedata-2.8.3\res
+com.adrianosena.asxstramiptv.app-coordinatorlayout-1.2.0-34 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\820f2437e97f73c3e7bebc21a8854488\transformed\coordinatorlayout-1.2.0\res
+com.adrianosena.asxstramiptv.app-drawerlayout-1.1.1-35 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\82ea23376e0cad4e60f0e1d0524054d0\transformed\drawerlayout-1.1.1\res
+com.adrianosena.asxstramiptv.app-ui-graphics-release-36 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\83b0c15cf38f9626ae26009cdc94c12f\transformed\ui-graphics-release\res
+com.adrianosena.asxstramiptv.app-lifecycle-viewmodel-release-37 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\841293551f7c9a4b0699e6465c5b7c66\transformed\lifecycle-viewmodel-release\res
+com.adrianosena.asxstramiptv.app-lifecycle-runtime-ktx-release-38 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\8959beaee9541c528a029433872504c4\transformed\lifecycle-runtime-ktx-release\res
+com.adrianosena.asxstramiptv.app-lifecycle-process-2.8.3-39 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\97572d8ff4b4bb4ac6f7d300e2c90313\transformed\lifecycle-process-2.8.3\res
+com.adrianosena.asxstramiptv.app-startup-runtime-1.1.1-40 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\a40c71b2040cefcb5c140692cdc5b6a7\transformed\startup-runtime-1.1.1\res
+com.adrianosena.asxstramiptv.app-constraintlayout-2.0.1-41 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\a6625c08c8f3bbbf86e15b47380a4c1c\transformed\constraintlayout-2.0.1\res
+com.adrianosena.asxstramiptv.app-appcompat-resources-1.6.1-42 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\b0918a06354d132da9d5e274d585ca1a\transformed\appcompat-resources-1.6.1\res
+com.adrianosena.asxstramiptv.app-cardview-1.0.0-43 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\b42f2d357b789abc8581fc196eadc992\transformed\cardview-1.0.0\res
+com.adrianosena.asxstramiptv.app-lifecycle-livedata-core-ktx-2.8.3-44 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\bc5c2f170dd667715d867e8931ad5a67\transformed\lifecycle-livedata-core-ktx-2.8.3\res
+com.adrianosena.asxstramiptv.app-ui-text-release-45 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\c2d4d95c831ed42185aff28e1852f8b8\transformed\ui-text-release\res
+com.adrianosena.asxstramiptv.app-activity-ktx-1.7.2-46 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\c91a3901705c843e96ba56d885f3dae4\transformed\activity-ktx-1.7.2\res
+com.adrianosena.asxstramiptv.app-emoji2-1.3.0-47 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\c933bca58589e8cc7ec297b85897b771\transformed\emoji2-1.3.0\res
+com.adrianosena.asxstramiptv.app-customview-poolingcontainer-1.0.0-48 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\c9fdb81f3161719d074d4df5d868f866\transformed\customview-poolingcontainer-1.0.0\res
+com.adrianosena.asxstramiptv.app-core-ktx-1.13.1-49 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\d2b7c290169abf7295e75d3c76608d61\transformed\core-ktx-1.13.1\res
+com.adrianosena.asxstramiptv.app-emoji2-views-helper-1.3.0-50 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\d2e7e5d0976a84f9aab4a7616f2ee349\transformed\emoji2-views-helper-1.3.0\res
+com.adrianosena.asxstramiptv.app-ui-util-release-51 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\d5c98bc148181972ea539b37c7ef4b1e\transformed\ui-util-release\res
+com.adrianosena.asxstramiptv.app-runtime-release-52 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\d707a43e7908eb3aa52816b8a604c676\transformed\runtime-release\res
+com.adrianosena.asxstramiptv.app-lifecycle-livedata-core-2.8.3-53 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\dbe85d0d182ef0bba7f104c17a050180\transformed\lifecycle-livedata-core-2.8.3\res
+com.adrianosena.asxstramiptv.app-core-runtime-2.2.0-54 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\ddb8887d96d0fae6fa39a23cdf41563f\transformed\core-runtime-2.2.0\res
+com.adrianosena.asxstramiptv.app-lifecycle-runtime-compose-release-55 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\e7d45d41d9db573ba2511b6c4f466ef5\transformed\lifecycle-runtime-compose-release\res
+com.adrianosena.asxstramiptv.app-runtime-saveable-release-56 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\e841e510c66c73e9fdd2f9973edabdb8\transformed\runtime-saveable-release\res
+com.adrianosena.asxstramiptv.app-fragment-1.6.1-57 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\e878914884515658040289ac91b28770\transformed\fragment-1.6.1\res
+com.adrianosena.asxstramiptv.app-avif-3.0.2-58 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\ebbcfc219e48d4028f7afb7e0136405d\transformed\avif-3.0.2\res
+com.adrianosena.asxstramiptv.app-drawee-3.2.0-59 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\f0404dfb930553473a032b3fbf7d4ace\transformed\drawee-3.2.0\res
+com.adrianosena.asxstramiptv.app-frameanimation-3.0.2-60 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\f885ec8010538c0207e41fe94f12e37f\transformed\frameanimation-3.0.2\res
+com.adrianosena.asxstramiptv.app-tracing-ktx-1.2.0-61 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\f88b927949c4e02260229179ac264501\transformed\tracing-ktx-1.2.0\res
+com.adrianosena.asxstramiptv.app-lifecycle-viewmodel-savedstate-2.8.3-62 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\fb928295960c9eadeb3470915c0a7ff0\transformed\lifecycle-viewmodel-savedstate-2.8.3\res
+com.adrianosena.asxstramiptv.app-fragment-ktx-1.6.1-63 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\fd9fad5103df3857813d4e4b36447292\transformed\fragment-ktx-1.6.1\res
+com.adrianosena.asxstramiptv.app-androidsvg-aar-1.4-64 C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\fdc878df2d75b34eb955a781ac07aea7\transformed\androidsvg-aar-1.4\res
+com.adrianosena.asxstramiptv.app-pngs-65 D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\build\generated\res\pngs\debug
+com.adrianosena.asxstramiptv.app-resValues-66 D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\build\generated\res\resValues\debug
+com.adrianosena.asxstramiptv.app-packageDebugResources-67 D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.adrianosena.asxstramiptv.app-packageDebugResources-68 D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.adrianosena.asxstramiptv.app-debug-69 D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\build\intermediates\merged_res\debug\mergeDebugResources
+com.adrianosena.asxstramiptv.app-debug-70 D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\debug\res
+com.adrianosena.asxstramiptv.app-main-71 D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\res
+com.adrianosena.asxstramiptv.app-debug-72 D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\@react-native-async-storage\async-storage\android\build\intermediates\packaged_res\debug\packageDebugResources
+com.adrianosena.asxstramiptv.app-debug-73 D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\expo-asset\android\build\intermediates\packaged_res\debug\packageDebugResources
+com.adrianosena.asxstramiptv.app-debug-74 D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\expo-av\android\build\intermediates\packaged_res\debug\packageDebugResources
+com.adrianosena.asxstramiptv.app-debug-75 D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\expo-constants\android\build\intermediates\packaged_res\debug\packageDebugResources
+com.adrianosena.asxstramiptv.app-debug-76 D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\expo-file-system\android\build\intermediates\packaged_res\debug\packageDebugResources
+com.adrianosena.asxstramiptv.app-debug-77 D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\expo-font\android\build\intermediates\packaged_res\debug\packageDebugResources
+com.adrianosena.asxstramiptv.app-debug-78 D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\expo-image\android\build\intermediates\packaged_res\debug\packageDebugResources
+com.adrianosena.asxstramiptv.app-debug-79 D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\expo-keep-awake\android\build\intermediates\packaged_res\debug\packageDebugResources
+com.adrianosena.asxstramiptv.app-debug-80 D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\expo-modules-core\android\build\intermediates\packaged_res\debug\packageDebugResources
+com.adrianosena.asxstramiptv.app-debug-81 D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\expo-screen-orientation\android\build\intermediates\packaged_res\debug\packageDebugResources
+com.adrianosena.asxstramiptv.app-debug-82 D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\expo-system-ui\android\build\intermediates\packaged_res\debug\packageDebugResources
+com.adrianosena.asxstramiptv.app-debug-83 D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\expo\android\build\intermediates\packaged_res\debug\packageDebugResources
+com.adrianosena.asxstramiptv.app-debug-84 D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\react-native-gesture-handler\android\build\intermediates\packaged_res\debug\packageDebugResources
+com.adrianosena.asxstramiptv.app-debug-85 D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\react-native-reanimated\android\build\intermediates\packaged_res\debug\packageDebugResources
+com.adrianosena.asxstramiptv.app-debug-86 D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\react-native-safe-area-context\android\build\intermediates\packaged_res\debug\packageDebugResources
+com.adrianosena.asxstramiptv.app-debug-87 D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\react-native-screens\android\build\intermediates\packaged_res\debug\packageDebugResources
+com.adrianosena.asxstramiptv.app-debug-88 D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\react-native-webview\android\build\intermediates\packaged_res\debug\packageDebugResources

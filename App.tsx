@@ -25,17 +25,17 @@ const TabNavigator = () => {
       <Tab.Screen name="Home"
         component={Home}
         options={{
-          title: "Filmes", headerShown: false, tabBarLabelStyle: { fontSize: 13 }, tabBarIcon({ focused, color, size }) {
+          title: "", headerShown: false, tabBarLabelStyle: { fontSize: 13 }, tabBarIcon({ focused, color, size }) {
             return <MaterialCommunityIcons name="movie-roll" size={size} color={color} />
           }, tabBarActiveTintColor: "rgba(255, 255, 255, 1)", tabBarInactiveTintColor: 'rgba(217, 217, 217, 0.7)'
         }} />
       <Tab.Screen name="Tv" component={Tv} options={{
-        title: "Tv", headerShown: false, tabBarLabelStyle: { fontSize: 13 }, tabBarIcon({ focused, color, size }) {
+        title: "", headerShown: false, tabBarLabelStyle: { fontSize: 13 }, tabBarIcon({ focused, color, size }) {
           return <Feather name="tv" size={size} color={color} />
         }, tabBarActiveTintColor: "rgba(255, 255, 255, 1)", tabBarInactiveTintColor: 'rgba(217, 217, 217, 0.7)'
       }} />
       <Tab.Screen name="Series" component={Series} options={{
-        title: "Séries", headerShown: false, tabBarLabelStyle: { fontSize: 13 }, tabBarIcon({ focused, color, size }) {
+        title: "", headerShown: false, tabBarLabelStyle: { fontSize: 13 }, tabBarIcon({ focused, color, size }) {
           return <MaterialCommunityIcons name="movie-open-outline" size={size} color={color} />
         }, tabBarActiveTintColor: "rgba(255, 255, 255, 1)", tabBarInactiveTintColor: 'rgba(217, 217, 217, 0.7)'
       }} />

@@ -1,0 +1,42 @@
+{
+  "installationFolder": "D:\\Projetos\\Sites\\AS-XSTREAM-IPTV\\node_modules\\react-native-reanimated\\android\\build\\intermediates\\prefab_package\\debug\\prefab",
+  "gradlePath": ":react-native-reanimated",
+  "packageInfo": {
+    "packageName": "react-native-reanimated",
+    "packageVersion": "3.17.4",
+    "packageSchemaVersion": 2,
+    "packageDependencies": [],
+    "modules": [
+      {
+        "moduleName": "reanimated",
+        "moduleHeaders": "D:\\Projetos\\Sites\\AS-XSTREAM-IPTV\\node_modules\\react-native-reanimated\\android\\build\\prefab-headers\\reanimated",
+        "moduleExportLibraries": [],
+        "abis": [
+          {
+            "abiName": "x86_64",
+            "abiApi": 24,
+            "abiNdkMajor": 26,
+            "abiStl": "c++_shared",
+            "abiLibrary": "D:\\Projetos\\Sites\\AS-XSTREAM-IPTV\\node_modules\\react-native-reanimated\\android\\build\\intermediates\\cxx\\Debug\\2w712uv4\\obj\\x86_64\\libreanimated.so",
+            "abiAndroidGradleBuildJsonFile": "D:\\Projetos\\Sites\\AS-XSTREAM-IPTV\\node_modules\\react-native-reanimated\\android\\.cxx\\Debug\\2w712uv4\\x86_64\\android_gradle_build.json"
+          }
+        ]
+      },
+      {
+        "moduleName": "worklets",
+        "moduleHeaders": "D:\\Projetos\\Sites\\AS-XSTREAM-IPTV\\node_modules\\react-native-reanimated\\android\\build\\prefab-headers\\worklets",
+        "moduleExportLibraries": [],
+        "abis": [
+          {
+            "abiName": "x86_64",
+            "abiApi": 24,
+            "abiNdkMajor": 26,
+            "abiStl": "c++_shared",
+            "abiLibrary": "D:\\Projetos\\Sites\\AS-XSTREAM-IPTV\\node_modules\\react-native-reanimated\\android\\build\\intermediates\\cxx\\Debug\\2w712uv4\\obj\\x86_64\\libworklets.so",
+            "abiAndroidGradleBuildJsonFile": "D:\\Projetos\\Sites\\AS-XSTREAM-IPTV\\node_modules\\react-native-reanimated\\android\\.cxx\\Debug\\2w712uv4\\x86_64\\android_gradle_build.json"
+          }
+        ]
+      }
+    ]
+  }
+}

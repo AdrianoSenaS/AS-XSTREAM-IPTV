@@ -1,0 +1,294 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.adrianosena.asxstramiptv"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+9        android:targetSdkVersion="34" />
+10
+11    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+11-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:6:3-75
+11-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:6:20-73
+12    <uses-permission android:name="android.permission.INTERNET" />
+12-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:2:3-64
+12-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:2:20-62
+13    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+13-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:3:3-77
+13-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:3:20-75
+14    <uses-permission
+14-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:4:3-77
+15        android:name="android.permission.READ_EXTERNAL_STORAGE"
+15-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:4:20-75
+16        android:maxSdkVersion="32" />
+16-->[:expo-image] D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\expo-image\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:17:9-35
+17    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+17-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:5:3-68
+17-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:5:20-66
+18    <uses-permission android:name="android.permission.VIBRATE" />
+18-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:7:3-63
+18-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:7:20-61
+19    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+19-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:8:3-78
+19-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:8:20-76
+20
+21    <queries>
+21-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:9:3-15:13
+22        <intent>
+22-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:10:5-14:14
+23            <action android:name="android.intent.action.VIEW" />
+23-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:11:7-58
+23-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:11:15-56
+24
+25            <category android:name="android.intent.category.BROWSABLE" />
+25-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:12:7-67
+25-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:12:17-65
+26
+27            <data android:scheme="https" />
+27-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:13:7-37
+27-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:13:13-35
+28        </intent>
+29        <!-- Query open documents -->
+30        <intent>
+30-->[:expo-file-system] D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:15:9-17:18
+31            <action android:name="android.intent.action.OPEN_DOCUMENT_TREE" />
+31-->[:expo-file-system] D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:16:13-79
+31-->[:expo-file-system] D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:16:21-76
+32        </intent>
+33    </queries>
+34    <!--
+35  Allows Glide to monitor connectivity status and restart failed requests if users go from a
+36  a disconnected to a connected network state.
+37    -->
+38    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+38-->[:expo-image] D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\expo-image\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:12:5-79
+38-->[:expo-image] D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\expo-image\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:12:22-76
+39
+40    <permission
+40-->[androidx.core:core:1.13.1] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\275972b32a83e4f2805ae07f38088e4e\transformed\core-1.13.1\AndroidManifest.xml:22:5-24:47
+41        android:name="com.adrianosena.asxstramiptv.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+41-->[androidx.core:core:1.13.1] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\275972b32a83e4f2805ae07f38088e4e\transformed\core-1.13.1\AndroidManifest.xml:23:9-81
+42        android:protectionLevel="signature" />
+42-->[androidx.core:core:1.13.1] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\275972b32a83e4f2805ae07f38088e4e\transformed\core-1.13.1\AndroidManifest.xml:24:9-44
+43
+44    <uses-permission android:name="com.adrianosena.asxstramiptv.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+44-->[androidx.core:core:1.13.1] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\275972b32a83e4f2805ae07f38088e4e\transformed\core-1.13.1\AndroidManifest.xml:26:5-97
+44-->[androidx.core:core:1.13.1] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\275972b32a83e4f2805ae07f38088e4e\transformed\core-1.13.1\AndroidManifest.xml:26:22-94
+45
+46    <application
+46-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:16:3-32:17
+47        android:name="com.adrianosena.asxstramiptv.MainApplication"
+47-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:16:16-47
+48        android:allowBackup="true"
+48-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:16:162-188
+49        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+49-->[androidx.core:core:1.13.1] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\275972b32a83e4f2805ae07f38088e4e\transformed\core-1.13.1\AndroidManifest.xml:28:18-86
+50        android:debuggable="true"
+51        android:extractNativeLibs="false"
+52        android:icon="@mipmap/ic_launcher"
+52-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:16:81-115
+53        android:label="@string/app_name"
+53-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:16:48-80
+54        android:roundIcon="@mipmap/ic_launcher_round"
+54-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:16:116-161
+55        android:supportsRtl="true"
+55-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:16:221-247
+56        android:theme="@style/AppTheme"
+56-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:16:189-220
+57        android:usesCleartextTraffic="true" >
+57-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:16:248-283
+58        <meta-data
+58-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:17:5-83
+59            android:name="expo.modules.updates.ENABLED"
+59-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:17:16-59
+60            android:value="false" />
+60-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:17:60-81
+61        <meta-data
+61-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:18:5-105
+62            android:name="expo.modules.updates.EXPO_UPDATES_CHECK_ON_LAUNCH"
+62-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:18:16-80
+63            android:value="ALWAYS" />
+63-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:18:81-103
+64        <meta-data
+64-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:19:5-99
+65            android:name="expo.modules.updates.EXPO_UPDATES_LAUNCH_WAIT_MS"
+65-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:19:16-79
+66            android:value="0" />
+66-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:19:80-97
+67
+68        <activity
+68-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:20:5-31:16
+69            android:name="com.adrianosena.asxstramiptv.MainActivity"
+69-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:20:15-43
+70            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|uiMode"
+70-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:20:44-134
+71            android:exported="true"
+71-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:20:256-279
+72            android:launchMode="singleTask"
+72-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:20:135-166
+73            android:screenOrientation="portrait"
+73-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:20:280-316
+74            android:theme="@style/Theme.App.SplashScreen"
+74-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:20:210-255
+75            android:windowSoftInputMode="adjustResize" >
+75-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:20:167-209
+76            <intent-filter>
+76-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:21:7-24:23
+77                <action android:name="android.intent.action.MAIN" />
+77-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:22:9-60
+77-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:22:17-58
+78
+79                <category android:name="android.intent.category.LAUNCHER" />
+79-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:23:9-68
+79-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:23:19-66
+80            </intent-filter>
+81            <intent-filter>
+81-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:25:7-30:23
+82                <action android:name="android.intent.action.VIEW" />
+82-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:11:7-58
+82-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:11:15-56
+83
+84                <category android:name="android.intent.category.DEFAULT" />
+84-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:27:9-67
+84-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:27:19-65
+85                <category android:name="android.intent.category.BROWSABLE" />
+85-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:12:7-67
+85-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:12:17-65
+86
+87                <data android:scheme="com.adrianosena.asxstramiptv" />
+87-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:13:7-37
+87-->D:\Projetos\Sites\AS-XSTREAM-IPTV\android\app\src\main\AndroidManifest.xml:13:13-35
+88            </intent-filter>
+89        </activity>
+90
+91        <provider
+91-->[:react-native-webview] D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:9-16:20
+92            android:name="com.reactnativecommunity.webview.RNCWebViewFileProvider"
+92-->[:react-native-webview] D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:13-83
+93            android:authorities="com.adrianosena.asxstramiptv.fileprovider"
+93-->[:react-native-webview] D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:10:13-64
+94            android:exported="false"
+94-->[:react-native-webview] D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:13-37
+95            android:grantUriPermissions="true" >
+95-->[:react-native-webview] D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:12:13-47
+96            <meta-data
+96-->[:react-native-webview] D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:13:13-15:63
+97                android:name="android.support.FILE_PROVIDER_PATHS"
+97-->[:react-native-webview] D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:14:17-67
+98                android:resource="@xml/file_provider_paths" />
+98-->[:react-native-webview] D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:15:17-60
+99        </provider>
+100        <provider
+100-->[:expo-file-system] D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:21:9-30:20
+101            android:name="expo.modules.filesystem.FileSystemFileProvider"
+101-->[:expo-file-system] D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:22:13-74
+102            android:authorities="com.adrianosena.asxstramiptv.FileSystemFileProvider"
+102-->[:expo-file-system] D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:23:13-74
+103            android:exported="false"
+103-->[:expo-file-system] D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:24:13-37
+104            android:grantUriPermissions="true" >
+104-->[:expo-file-system] D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:25:13-47
+105            <meta-data
+105-->[:react-native-webview] D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:13:13-15:63
+106                android:name="android.support.FILE_PROVIDER_PATHS"
+106-->[:react-native-webview] D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:14:17-67
+107                android:resource="@xml/file_system_provider_paths" />
+107-->[:react-native-webview] D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:15:17-60
+108        </provider>
+109
+110        <meta-data
+110-->[:expo-modules-core] D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\expo-modules-core\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:9-11:89
+111            android:name="org.unimodules.core.AppLoader#react-native-headless"
+111-->[:expo-modules-core] D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\expo-modules-core\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:10:13-79
+112            android:value="expo.modules.adapters.react.apploader.RNHeadlessAppLoader" />
+112-->[:expo-modules-core] D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\expo-modules-core\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:13-86
+113        <meta-data
+113-->[:expo-modules-core] D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\expo-modules-core\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:12:9-15:45
+114            android:name="com.facebook.soloader.enabled"
+114-->[:expo-modules-core] D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\expo-modules-core\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:13:13-57
+115            android:value="true" />
+115-->[:expo-modules-core] D:\Projetos\Sites\AS-XSTREAM-IPTV\node_modules\expo-modules-core\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:14:13-33
+116
+117        <activity
+117-->[com.facebook.react:react-android:0.76.5] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\09e99889bdbc3a72b28a5d49d1ebcf4c\transformed\react-android-0.76.5-debug\AndroidManifest.xml:19:9-21:40
+118            android:name="com.facebook.react.devsupport.DevSettingsActivity"
+118-->[com.facebook.react:react-android:0.76.5] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\09e99889bdbc3a72b28a5d49d1ebcf4c\transformed\react-android-0.76.5-debug\AndroidManifest.xml:20:13-77
+119            android:exported="false" />
+119-->[com.facebook.react:react-android:0.76.5] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\09e99889bdbc3a72b28a5d49d1ebcf4c\transformed\react-android-0.76.5-debug\AndroidManifest.xml:21:13-37
+120
+121        <meta-data
+121-->[com.github.bumptech.glide:okhttp3-integration:4.11.0] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\188f34f59765e8c0c0edee61b4565bc8\transformed\okhttp3-integration-4.11.0\AndroidManifest.xml:11:9-13:43
+122            android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
+122-->[com.github.bumptech.glide:okhttp3-integration:4.11.0] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\188f34f59765e8c0c0edee61b4565bc8\transformed\okhttp3-integration-4.11.0\AndroidManifest.xml:12:13-84
+123            android:value="GlideModule" />
+123-->[com.github.bumptech.glide:okhttp3-integration:4.11.0] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\188f34f59765e8c0c0edee61b4565bc8\transformed\okhttp3-integration-4.11.0\AndroidManifest.xml:13:13-40
+124
+125        <provider
+125-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\c933bca58589e8cc7ec297b85897b771\transformed\emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
+126            android:name="androidx.startup.InitializationProvider"
+126-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\c933bca58589e8cc7ec297b85897b771\transformed\emoji2-1.3.0\AndroidManifest.xml:25:13-67
+127            android:authorities="com.adrianosena.asxstramiptv.androidx-startup"
+127-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\c933bca58589e8cc7ec297b85897b771\transformed\emoji2-1.3.0\AndroidManifest.xml:26:13-68
+128            android:exported="false" >
+128-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\c933bca58589e8cc7ec297b85897b771\transformed\emoji2-1.3.0\AndroidManifest.xml:27:13-37
+129            <meta-data
+129-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\c933bca58589e8cc7ec297b85897b771\transformed\emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
+130                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+130-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\c933bca58589e8cc7ec297b85897b771\transformed\emoji2-1.3.0\AndroidManifest.xml:30:17-75
+131                android:value="androidx.startup" />
+131-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\c933bca58589e8cc7ec297b85897b771\transformed\emoji2-1.3.0\AndroidManifest.xml:31:17-49
+132            <meta-data
+132-->[androidx.lifecycle:lifecycle-process:2.8.3] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\97572d8ff4b4bb4ac6f7d300e2c90313\transformed\lifecycle-process-2.8.3\AndroidManifest.xml:29:13-31:52
+133                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+133-->[androidx.lifecycle:lifecycle-process:2.8.3] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\97572d8ff4b4bb4ac6f7d300e2c90313\transformed\lifecycle-process-2.8.3\AndroidManifest.xml:30:17-78
+134                android:value="androidx.startup" />
+134-->[androidx.lifecycle:lifecycle-process:2.8.3] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\97572d8ff4b4bb4ac6f7d300e2c90313\transformed\lifecycle-process-2.8.3\AndroidManifest.xml:31:17-49
+135            <meta-data
+135-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\38618f0efbf35910e6bb27e7c9a4b9b4\transformed\profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
+136                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+136-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\38618f0efbf35910e6bb27e7c9a4b9b4\transformed\profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
+137                android:value="androidx.startup" />
+137-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\38618f0efbf35910e6bb27e7c9a4b9b4\transformed\profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
+138        </provider>
+139
+140        <receiver
+140-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\38618f0efbf35910e6bb27e7c9a4b9b4\transformed\profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
+141            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+141-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\38618f0efbf35910e6bb27e7c9a4b9b4\transformed\profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
+142            android:directBootAware="false"
+142-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\38618f0efbf35910e6bb27e7c9a4b9b4\transformed\profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
+143            android:enabled="true"
+143-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\38618f0efbf35910e6bb27e7c9a4b9b4\transformed\profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
+144            android:exported="true"
+144-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\38618f0efbf35910e6bb27e7c9a4b9b4\transformed\profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
+145            android:permission="android.permission.DUMP" >
+145-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\38618f0efbf35910e6bb27e7c9a4b9b4\transformed\profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
+146            <intent-filter>
+146-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\38618f0efbf35910e6bb27e7c9a4b9b4\transformed\profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
+147                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+147-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\38618f0efbf35910e6bb27e7c9a4b9b4\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
+147-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\38618f0efbf35910e6bb27e7c9a4b9b4\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
+148            </intent-filter>
+149            <intent-filter>
+149-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\38618f0efbf35910e6bb27e7c9a4b9b4\transformed\profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
+150                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+150-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\38618f0efbf35910e6bb27e7c9a4b9b4\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
+150-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\38618f0efbf35910e6bb27e7c9a4b9b4\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
+151            </intent-filter>
+152            <intent-filter>
+152-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\38618f0efbf35910e6bb27e7c9a4b9b4\transformed\profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
+153                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+153-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\38618f0efbf35910e6bb27e7c9a4b9b4\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
+153-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\38618f0efbf35910e6bb27e7c9a4b9b4\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
+154            </intent-filter>
+155            <intent-filter>
+155-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\38618f0efbf35910e6bb27e7c9a4b9b4\transformed\profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
+156                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+156-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\38618f0efbf35910e6bb27e7c9a4b9b4\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
+156-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Adriano Sena\.gradle\caches\8.10.2\transforms\38618f0efbf35910e6bb27e7c9a4b9b4\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
+157            </intent-filter>
+158        </receiver>
+159    </application>
+160
+161</manifest>
