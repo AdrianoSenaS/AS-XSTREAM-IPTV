@@ -1,22 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, Alert, StatusBar, TouchableOpacity, SafeAreaView, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, Alert, StatusBar, TouchableOpacity, SafeAreaView, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import { LoginUserStream } from '../Services/Login';
-
+import { Loanding } from '../Components/Loading';
+import { useLogin } from '../Hooks/UseLogin';
 
 const Login: React.FC = ({ navigation }: any) => {
-    const [Name, SetName] = useState("")
-    const [usuario, SetUsuario] = useState("")
-    const [senha, SetSenha] = useState("")
-    const [url, SetUrl] = useState("")
-    const [Loanding, SetLoading] = useState(false)
+    const { _Name,
+        SetName,
+        _Usuario,
+        SetUsuario,
+        _Senha,
+        SetSenha,
+        _Url,
+        SetUrl,
+        _Loanding,
+        SetLoading
+    } = useLogin();
 
     const BtnLogin = async () => {
         SetLoading(true)
-        if (Name === "" || usuario === "" || senha === "" || url === "") {
+        if (_Name === "" || _Usuario === "" || _Senha === "" || _Url === "") {
             SetLoading(false)
             return Alert.alert('Notificação', 'Preencha todos os dado!')
         }
-        const result = LoginUserStream(Name, usuario, senha, url);
+        const result = LoginUserStream(_Name, _Usuario, _Senha, _Url);
         if (await result !== "Ok") {
             Alert.alert('Notificação', 'Erro ao conectar!')
             SetLoading(false)
@@ -28,12 +35,9 @@ const Login: React.FC = ({ navigation }: any) => {
         })
     }
 
-    if (Loanding === true) {
+    if (_Loanding === true) {
         return (
-
-            <SafeAreaView style={[StyleLoading.container, StyleLoading.horizontal]}>
-                <ActivityIndicator size="large" color={'#fff'} />
-            </SafeAreaView>
+            <Loanding/>
         )
     }
     return (
@@ -52,7 +56,7 @@ const Login: React.FC = ({ navigation }: any) => {
                 </Text>
                 <Text
                     style={styles.text}>
-                    ASSISTA SEUS CONTEÚDOS SEM INTERRUPÇÕES
+                    ASSISTA SEUS CONTEÚDOS
                 </Text>
                 <Text
                     style={styles.text}>
@@ -63,14 +67,14 @@ const Login: React.FC = ({ navigation }: any) => {
                     keyboardAppearance='dark'
                     placeholder='SEU NOME'
                     placeholderTextColor={'#C5C4C4'}
-                    value={Name}
+                    value={_Name}
                     onChangeText={SetName} />
                 <TextInput
                     style={styles.inputInitial}
                     keyboardAppearance='dark'
                     placeholder='USUÁRIO'
                     placeholderTextColor={'#C5C4C4'}
-                    value={usuario}
+                    value={_Usuario}
                     onChangeText={SetUsuario} />
                 <TextInput
                     style={styles.inputInitial}
@@ -78,14 +82,14 @@ const Login: React.FC = ({ navigation }: any) => {
                     placeholder='SENHA'
                     placeholderTextColor={'#C5C4C4'}
                     secureTextEntry={true}
-                    value={senha}
+                    value={_Senha}
                     onChangeText={SetSenha} />
                 <TextInput
                     style={styles.inputInitial}
                     keyboardAppearance='dark'
                     placeholder='URl http://xstreamexample.com'
                     placeholderTextColor={'#C5C4C4'}
-                    value={url}
+                    value={_Url}
                     onChangeText={SetUrl} />
                 <TouchableOpacity
                     onPress={BtnLogin}
@@ -118,7 +122,8 @@ const styles = StyleSheet.create({
     text: {
         color: '#fff',
         fontSize: 16,
-        marginTop: 10
+        marginTop: 10,
+        marginBottom: 10,
     },
     textButtom: {
         color: '#fff',
@@ -146,17 +151,5 @@ const styles = StyleSheet.create({
     }
 });
 
-const StyleLoading = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        backgroundColor: '#000',
-    },
-    horizontal: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        padding: 10,
-    },
-});
 
 export default Login
