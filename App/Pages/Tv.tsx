@@ -7,11 +7,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as FileSystem from 'expo-file-system';
 import { useFocusEffect } from '@react-navigation/native';
 import * as ScreenOrientation from 'expo-screen-orientation';
+import { SearchAll } from '../Components/Ui/Search';
+import { Loanding } from '../Components/Loading';
 
 const Tv: React.FC = ({ navigation }: any) => {
     const CountSelecao = Math.floor(Math.random() * 10)
     const [CountStream, SetCountStream] = useState(10)
-    const [Loanding, SetLoanding] = useState(true)
+    const [_Loanding, SetLoanding] = useState(true)
     const [UserNameLabelScree, SetUserNameLabelScree] = useState('')
     const [ImageBanner, SetImageBanner] = useState('');
     const [Title, SetTitle] = useState("")
@@ -28,7 +30,7 @@ const Tv: React.FC = ({ navigation }: any) => {
     const [modalVisible1, setModalVisible1] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
     const [urlPlayer, SetUrlPlayer] = useState('')
-    
+
 
     const getFileUri = (fileName: string) => `${FileSystem.documentDirectory}${fileName}`;
     const saveDataStream = async (fileName: string, data: object) => {
@@ -52,15 +54,8 @@ const Tv: React.FC = ({ navigation }: any) => {
         }
     };
 
-    // Função de pesquisa
-    const handleSearch = (text: string) => {
-        setSearchText(text);
-        // Filtra os itens que contêm o texto da pesquisa
-        const filtered: any = DatasStream.filter((item: any) =>
-            item.name.toLowerCase().includes(text.toLowerCase())
-        );
-        setFilteredData(filtered); // Atualiza o estado com os itens filtrados
-    };
+   
+    
 
     const Login = async () => {
         const userDb = await AsyncStorage.getItem('username')
@@ -83,9 +78,11 @@ const Tv: React.FC = ({ navigation }: any) => {
             if (StreamData !== null && StreamDataCategories !== null) {
                 SetDataCategoriesStream(StreamDataCategories)
                 SetDatasStream(StreamData)
-                setFilteredData(StreamData)
+                setFilteredData(StreamData),
+                SetLoanding(false)
                 Destaque(StreamData)
                 console.log('Filmes Exibido localmente')
+                
             } else {
                 let url = await AsyncStorage.getItem('url')
                 let username = await AsyncStorage.getItem('username')
@@ -102,10 +99,11 @@ const Tv: React.FC = ({ navigation }: any) => {
                     SetDataCategoriesStream(categoria)
                     SetDatasStream(Stream)
                     setFilteredData(Stream)
-                    Destaque(Stream)
-                    // saveDataStream('categoriesTv.json', categoria)
-                    //saveDataStream('Tv.json', Stream)
                     SetLoanding(false)
+                    Destaque(Stream)
+                    saveDataStream('categoriesTv.json', categoria)
+                    saveDataStream('Tv.json', Stream)
+                    
                 }
             }
 
@@ -117,9 +115,9 @@ const Tv: React.FC = ({ navigation }: any) => {
     const Destaque = (StreamData: any) => {
         StreamData.forEach((Stream: any) => {
             if (Stream.num === CountSelecao && Stream.stream_icon != undefined) {
-                SetImageBanner(Stream.stream_icon)
+                SetImageBanner(Stream.stream_icon )
                 SetTitle(Stream.title)
-                SetUrlPlayer(`${urlApiStream}/${Stream.stream_type}/${userApiStream}/${passwordApiStream}/${Stream.stream_id}`)
+                SetUrlPlayer(`${urlApiStream}/${Stream.item.stream_type}/${userApiStream}/${passwordApiStream}/${Stream.item.stream_id}`)
             }
         });
     }
@@ -134,14 +132,14 @@ const Tv: React.FC = ({ navigation }: any) => {
         SetCountStream(CountStream + 10)
         console.log("Buscando filmes")
     }
-useFocusEffect(
+    useFocusEffect(
         useCallback(() => {
-            ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP); 
-    
-          // Retorne uma função para executar algo quando a tela perder o foco
-          return () => {
-            ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP); 
-          };
+            ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+
+            // Retorne uma função para executar algo quando a tela perder o foco
+            return () => {
+                ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+            };
         }, []));
     useEffect(() => {
         const Main = async () => {
@@ -160,11 +158,9 @@ useFocusEffect(
         Main()
     }, [])
 
-    if (Loanding === true)
+    if (_Loanding === true)
         return (
-            <SafeAreaView style={[StyleLoading.container, StyleLoading.horizontal]}>
-                <ActivityIndicator size="large" color={'#fff'} />
-            </SafeAreaView>
+             <Loanding/>
         )
     if (categoriaSelected === true) {
         return (
@@ -181,32 +177,16 @@ useFocusEffect(
                         onRequestClose={() => {
                             setModalVisible1(!modalVisible1);
                         }}>
-                        <View style={styles.centeredView}>
-                            <View style={{ height: '100%' }}>
-                                <TextInput
-                                    style={{ width: '100%', height: 50, backgroundColor: '#fff', color: '#000' }}
-                                    placeholder="Pesquisar..."
-                                    value={searchText}
-                                    onChangeText={handleSearch} // Atualiza a pesquisa sempre que o texto mudar
-                                />
-                                <FlatList
-                                    style={{ width: '100%', borderRadius: 5 }}
-                                    data={filteredData}
-                                    keyExtractor={(item: any) => item.stream_id}
-                                    renderItem={(Stream) => (
-                                        <TouchableOpacity
-                                            style={styles.modalView}
-                                            onPress={() =>
-                                                navigation.navigate('Player',
-                                                    {
-                                                        urlhls: `${urlApiStream}/${Stream.item.stream_type}/${userApiStream}/${passwordApiStream}/${Stream.item.stream_id}`,
-                                                        typeUrl: 'm3u8'
-                                                    })}>
-                                            <Text style={styles.textStyle}>{Stream.item.name}</Text>
-                                        </TouchableOpacity>
-                                    )} />
-                            </View>
-                        </View>
+                        <SearchAll
+                            navigation={navigation}
+                            GetStreamList={GetStreamList}
+                            urlApiStream={urlApiStream}
+                            userApiStream={userApiStream}
+                            DatasStream={DatasStream}
+                            passwordApiStream={passwordApiStream}
+                            filteredData={filteredData}
+
+                        />
                     </Modal>
                     <Modal
                         animationType='slide'
@@ -281,7 +261,7 @@ useFocusEffect(
 
                                                     <Image
 
-                                                        source={{ uri: Stream.item.stream_icon }}
+                                                        source={{ uri: Stream.item.stream_icon || Stream.item.cover}}
                                                         style={styles.StreamImage}
                                                         cachePolicy={'memory-disk'}
                                                     />
@@ -311,32 +291,16 @@ useFocusEffect(
                     onRequestClose={() => {
                         setModalVisible1(!modalVisible1);
                     }}>
-                    <View style={styles.centeredView}>
-                        <View style={{ height: '100%' }}>
-                            <TextInput
-                                style={{ width: '100%', height: 50, backgroundColor: '#fff', color: '#000' }}
-                                placeholder="Pesquisar..."
-                                value={searchText}
-                                onChangeText={handleSearch} // Atualiza a pesquisa sempre que o texto mudar
-                            />
-                            <FlatList
-                                style={{ width: '100%', borderRadius: 5 }}
-                                data={filteredData}
-                                keyExtractor={(item: any) => item.stream_id}
-                                renderItem={(Stream) => (
-                                    <TouchableOpacity
-                                        style={styles.modalView}
-                                        onPress={() =>
-                                            navigation.navigate('Player',
-                                                {
-                                                    urlhls: `${urlApiStream}/${Stream.item.stream_type}/${userApiStream}/${passwordApiStream}/${Stream.item.stream_id}`,
-                                                    typeUrl: 'm3u8'
-                                                })}>
-                                        <Text style={styles.textStyle}>{Stream.item.name}</Text>
-                                    </TouchableOpacity>
-                                )} />
-                        </View>
-                    </View>
+                    <SearchAll
+                        navigation={navigation}
+                        GetStreamList={GetStreamList}
+                        urlApiStream={urlApiStream}
+                        userApiStream={userApiStream}
+                        DatasStream={DatasStream}
+                        passwordApiStream={passwordApiStream}
+                        filteredData={filteredData}
+
+                    />
                 </Modal>
                 <Modal
                     animationType='slide'
@@ -377,28 +341,6 @@ useFocusEffect(
                     </View>
                     <ScrollView style={{ flex: 1, width: '100%' }}>
                         <View style={styles.ViewFlatLisr}>
-                            <View
-                                style={styles.ImageInicioView}>
-                                <ImageBackground
-
-                                    style={styles.ImageInicio}
-                                    borderRadius={10}
-                                    source={{ uri: ImageBanner }}>
-                                    <Text style={styles.TxtTittleBanner}>{Title}</Text>
-                                    <TouchableOpacity
-                                        onPress={() =>
-                                            navigation.navigate('Player',
-                                                {
-                                                    urlhls: urlPlayer,
-                                                    typeUrl: 'm3u8'
-                                                })
-                                        }
-                                        style={styles.btnAssitirBanner}>
-                                        <FontAwesome5 name="play" size={20} color="black" />
-                                        <Text style={styles.Textbanner}>Assistir</Text>
-                                    </TouchableOpacity>
-                                </ImageBackground>
-                            </View>
                             {
                                 DataCategoriesStream.map((categoria: any) => (
                                     <View key={categoria.category_id}>
@@ -428,7 +370,7 @@ useFocusEffect(
 
                                                         <Image
 
-                                                            source={{ uri: Stream.item.stream_icon }}
+                                                            source={{ uri: Stream.item.stream_icon || Stream.item.cover }}
                                                             style={styles.StreamImage}
                                                             cachePolicy={'memory-disk'}
                                                         />
@@ -527,7 +469,7 @@ const styles = StyleSheet.create({
     },
     ViewFlatLisr: {
         zIndex: 4,
-        marginTop: 20,
+        marginTop: 0,
         marginBottom: 60
     },
     FlatListMain: {

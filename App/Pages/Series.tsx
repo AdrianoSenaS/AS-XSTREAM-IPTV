@@ -5,11 +5,13 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as FileSystem from 'expo-file-system';
+import { SearchAll } from '../Components/Ui/Search';
+import { Loanding } from '../Components/Loading';
 
 const Series: React.FC = ({ navigation }: any) => {
     const CountSelecao = Math.floor(Math.random() * 10)
     const [CountStream, SetCountStream] = useState(10)
-    const [Loanding, SetLoanding] = useState(true)
+    const [_Loanding, SetLoanding] = useState(true)
     const [UserNameLabelScree, SetUserNameLabelScree] = useState('')
     const [ImageBanner, SetImageBanner] = useState('');
     const [Title, SetTitle] = useState("")
@@ -93,6 +95,7 @@ const Series: React.FC = ({ navigation }: any) => {
                 setFilteredData(StreamData)
                 Destaque(StreamData)
                 console.log('Filmes Exibido localmente')
+                SetLoanding(false)
             } else {
                 let url = await AsyncStorage.getItem('url')
                 let username = await AsyncStorage.getItem('username')
@@ -107,8 +110,8 @@ const Series: React.FC = ({ navigation }: any) => {
                     SetDatasStream(Stream)
                     setFilteredData(Stream)
                     Destaque(Stream)
-                    // saveDataStream('categoriesSeries.json', categoria)
-                    // saveDataStream('Series.json', Stream)
+                    saveDataStream('categoriesSeries.json', categoria)
+                    saveDataStream('Series.json', Stream)
                     SetLoanding(false)
                 }
             }
@@ -120,7 +123,7 @@ const Series: React.FC = ({ navigation }: any) => {
 
     const Destaque = (StreamData: any) => {
         StreamData.forEach((Stream: any) => {
-            if (Stream.num === CountSelecao && Stream.cover != undefined) {
+            if (Stream.num === CountSelecao && Stream.cover != undefined ) {
                 SetImageBanner(Stream.cover)
                 SetTitle(Stream.title)
                 Setdescription(Stream.plot)
@@ -150,11 +153,9 @@ const Series: React.FC = ({ navigation }: any) => {
         Main()
     }, [])
 
-    if (Loanding === true)
+    if (_Loanding === true)
         return (
-            <SafeAreaView style={[StyleLoading.container, StyleLoading.horizontal]}>
-                <ActivityIndicator size="large" color={'#fff'} />
-            </SafeAreaView>
+             <Loanding/>
         )
     if (categoriaSelected === true) {
         return (
@@ -171,36 +172,16 @@ const Series: React.FC = ({ navigation }: any) => {
                         onRequestClose={() => {
                             setModalVisible1(!modalVisible1);
                         }}>
-                        <View style={styles.centeredView}>
-                            <View style={{ height: '100%' }}>
-                                <TextInput
-                                    style={{ width: '100%', height: 50, backgroundColor: '#fff', color: '#000' }}
-                                    placeholder="Pesquisar..."
-                                    value={searchText}
-                                    onChangeText={handleSearch} // Atualiza a pesquisa sempre que o texto mudar
-                                />
-                                <FlatList
-                                    style={{ width: '100%', borderRadius: 5 }}
-                                    data={filteredData}
-                                    keyExtractor={(item: any) => item.series_id}
-                                    renderItem={(Stream) => (
-                                        <TouchableOpacity
-                                            style={styles.modalView}
-                                            onPress={() => navigation.navigate('infoSeries',
-                                                {
-                                                    series_id: Stream.item.series_id,
-                                                    title: Stream.item.title,
-                                                    image: Stream.item.cover,
-                                                    description: Stream.item.plot,
-                                                    year: Stream.item.year
-                                                }
-
-                                            )}>
-                                            <Text style={styles.textStyle}>{Stream.item.title}</Text>
-                                        </TouchableOpacity>
-                                    )} />
-                            </View>
-                        </View>
+                         <SearchAll
+                                                navigation={navigation}
+                                                GetStreamList={GetStreamList}
+                                                urlApiStream={urlApiStream}
+                                                userApiStream={userApiStream}
+                                                DatasStream={DatasStream}
+                                                passwordApiStream={passwordApiStream}
+                                                filteredData={filteredData}
+                                               
+                                                />
                     </Modal>
                     <Modal
                         animationType='slide'
@@ -270,7 +251,7 @@ const Series: React.FC = ({ navigation }: any) => {
                                                         {
                                                             series_id: Stream.item.series_id,
                                                             title: Stream.item.title,
-                                                            image: Stream.item.cover,
+                                                            image:Stream.item.stream_icon || Stream.item.cover,
                                                             description: Stream.item.plot,
                                                             year: Stream.item.year
                                                         }
@@ -278,7 +259,7 @@ const Series: React.FC = ({ navigation }: any) => {
                                                     )}>
                                                     <View style={styles.StreamCard}>
                                                         <Image
-                                                            source={{ uri: Stream.item.cover }}
+                                                            source={{ uri:Stream.item.stream_icon || Stream.item.cover }}
                                                             style={styles.StreamImage}
                                                             cachePolicy={'memory-disk'}
                                                         />
@@ -310,36 +291,16 @@ const Series: React.FC = ({ navigation }: any) => {
                     onRequestClose={() => {
                         setModalVisible1(!modalVisible1);
                     }}>
-                    <View style={styles.centeredView}>
-                        <View style={{ height: '100%' }}>
-                            <TextInput
-                                style={{ width: '100%', height: 50, backgroundColor: '#fff', color: '#000' }}
-                                placeholder="Pesquisar..."
-                                value={searchText}
-                                onChangeText={handleSearch} // Atualiza a pesquisa sempre que o texto mudar
-                            />
-                            <FlatList
-                                style={{ width: '100%', borderRadius: 5 }}
-                                data={filteredData}
-                                keyExtractor={(item: any) => item.series_id}
-                                renderItem={(Stream) => (
-                                    <TouchableOpacity
-                                        style={styles.modalView}
-                                        onPress={() => navigation.navigate('infoSeries',
-                                            {
-                                                series_id: Stream.item.series_id,
-                                                title: Stream.item.title,
-                                                image: Stream.item.cover,
-                                                description: Stream.item.plot,
-                                                year: Stream.item.year
-                                            }
-
-                                        )}>
-                                        <Text style={styles.textStyle}>{Stream.item.title}</Text>
-                                    </TouchableOpacity>
-                                )} />
-                        </View>
-                    </View>
+                     <SearchAll
+                                            navigation={navigation}
+                                            GetStreamList={GetStreamList}
+                                            urlApiStream={urlApiStream}
+                                            userApiStream={userApiStream}
+                                            DatasStream={DatasStream}
+                                            passwordApiStream={passwordApiStream}
+                                            filteredData={filteredData}
+                                           
+                                            />
                 </Modal>
                 <Modal
                     animationType='slide'
@@ -380,42 +341,7 @@ const Series: React.FC = ({ navigation }: any) => {
                     </View>
                     <ScrollView style={{ flex: 1, width: '100%' }}>
                         <View style={styles.ViewFlatLisr}>
-                            <View
-                                style={styles.ImageInicioView}>
-                                <TouchableOpacity
-                                    style={styles.ImageInicio}
-                                    onPress={() => navigation.navigate('infoStream',
-                                        {
-                                            title: Title,
-                                            image: ImageBanner,
-                                            description: description,
-                                            urlhls: urlhls,
-                                            year: year,
-                                        }
-                                    )}>
-                                    <ImageBackground
-                                        style={styles.ImageInicio}
-                                        borderRadius={10}
-                                        source={{ uri: ImageBanner }}>
-                                        <Text style={styles.TxtTittleBanner}>{Title}</Text>
-                                        <TouchableOpacity
-                                            onPress={() => navigation.navigate('infoSeries',
-                                                {
-                                                    series_id: SerieId,
-                                                    title: Title,
-                                                    image: ImageBanner,
-                                                    description: description,
-                                                    year: year
-                                                }
-
-                                            )}
-                                            style={styles.btnAssitirBanner}>
-                                            <FontAwesome5 name="play" size={20} color="black" />
-                                            <Text style={styles.Textbanner}>Assistir</Text>
-                                        </TouchableOpacity>
-                                    </ImageBackground>
-                                </TouchableOpacity>
-                            </View>
+                           
                             {
                                 DataCategoriesStream.map((categoria: any) => (
                                     <View key={categoria.category_id}>
@@ -440,7 +366,7 @@ const Series: React.FC = ({ navigation }: any) => {
                                                             {
                                                                 series_id: Stream.item.series_id,
                                                                 title: Stream.item.title,
-                                                                image: Stream.item.cover,
+                                                                image:Stream.item.stream_icon || Stream.item.cover,
                                                                 description: Stream.item.plot,
                                                                 year: Stream.item.year
                                                             }
@@ -448,7 +374,7 @@ const Series: React.FC = ({ navigation }: any) => {
                                                         )}>
                                                         <View style={styles.StreamCard}>
                                                             <Image
-                                                                source={{ uri: Stream.item.cover }}
+                                                                source={{ uri:Stream.item.stream_icon || Stream.item.cover }}
                                                                 style={styles.StreamImage}
                                                                 cachePolicy={'memory-disk'}
                                                             />
@@ -549,7 +475,7 @@ const styles = StyleSheet.create({
     },
     ViewFlatLisr: {
         zIndex: 4,
-        marginTop: 20,
+        marginTop: 0,
         marginBottom: 60
     },
     FlatListMain: {

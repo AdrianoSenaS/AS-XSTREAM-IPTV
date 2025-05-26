@@ -139,7 +139,7 @@ CMAKE_LIBRARY_OUTPUT_DIRECTORY:UNINITIALIZED=D:\Projetos\Sites\AS-XSTREAM-IPTV\a
 CMAKE_LINKER:FILEPATH=C:/Users/Adriano Sena/AppData/Local/Android/Sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/bin/ld.lld.exe
 
 //make program
-CMAKE_MAKE_PROGRAM:FILEPATH=C:/Users/Adriano Sena/AppData/Local/Android/Sdk/cmake/3.22.1/bin/ninja.exe
+CMAKE_MAKE_PROGRAM:FILEPATH=C:/Users/ADRIAN~1/AppData/Local/Android/Sdk/cmake/322~1.1/bin/ninja.exe
 
 //Flags used by the linker during the creation of modules.
 CMAKE_MODULE_LINKER_FLAGS:STRING=
