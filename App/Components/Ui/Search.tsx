@@ -6,11 +6,9 @@ import { useSearch } from "../../Hooks/UseSearch";
 import ListStreamVertical from "./ListStreamVertical";
 
 export function SearchAll({
-    navigation,
-    urlApiStream,
-    userApiStream,
+    
     DatasStream,
-    passwordApiStream }: SearchType) {
+     }: SearchType) {
     const {
         searchText,
         setSearchText,
@@ -34,15 +32,7 @@ export function SearchAll({
                 onPress={() => { setModalVisible1(!modalVisible1); setSearchText(""); setFilteredData(DatasStream); }}>
                 <AntDesign name="search1" size={30} color={'#fff'} />
             </TouchableOpacity>
-            <Modal
-                style={{ flex: 1 }}
-                animationType='slide'
-                transparent={true}
-                visible={modalVisible1}
-                onRequestClose={() => {
-                    setModalVisible1(!modalVisible1);
-                }}>
-                <View style={styles.centeredView}>
+            <View style={styles.centeredView}>
                     <View style={{ height: '100%' }}>
                         <View style={styles.selecaoItens}>
                             <TextInput
@@ -56,16 +46,9 @@ export function SearchAll({
                                 <AntDesign name="close" size={20} color={'#fff'} />
                             </TouchableOpacity>
                         </View>
-                        <ListStreamVertical
-                            data={filteredData}
-                            navigation={navigation}
-                            urlApiStream={urlApiStream}
-                            userApiStream={userApiStream}
-                            passwordApiStream={passwordApiStream}
-                        />
+                        {}
                     </View>
                 </View>
-            </Modal>
         </>
     )
 }
