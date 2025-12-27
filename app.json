@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "AS XSTREAM IPTV",
-    "slug": "AS-XSTREAM-IPTV",
+    "name": "AS STREAM IPTV",
+    "slug": "AS-STREAM-IPTV",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -25,7 +25,7 @@
         "supportsBackgroundPlayback": true,
         "supportsPictureInPicture": true
       },
-      "bundleIdentifier": "com.adrianosena.asxstramiptv"
+      "bundleIdentifier": "com.adrianosena.asstreamiptv"
     },
     "android": {
       "adaptiveIcon": {
@@ -36,15 +36,7 @@
         "READ_EXTERNAL_STORAGE",
         "WRITE_EXTERNAL_STORAGE"
       ],
-      "package": "com.adrianosena.asxstramiptv"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "a1b839e7-3713-426f-8a9a-8e0ebca4eba5"
-      }
+      "package": "com.adrianosena.asstreamiptv"
     },
     "plugins": [
       [
