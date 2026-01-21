@@ -36,4 +36,3 @@ Este projeto é licenciado sob a licença MIT. Consulte o arquivo `LICENSE` para
 
 **Autor:** Adriano Sena  
 GitHub: [AdrianoSenaS](https://github.com/AdrianoSenaS)
-

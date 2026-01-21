@@ -1,0 +1,31 @@
+[INFO] 🚀 Iniciando processo de carregamento do AS IPTV...
+ LOG  [INFO] Conectando em: http://megga.hubns.top
+ LOG  [INFO] Usuário: 732333856749
+ LOG  [INFO] Testando conexão com o servidor...
+ LOG  API URL: http://megga.hubns.top/player_api.php?username=732333856749&password=210225713027&action=get_live_categories
+ LOG  [SUCCESS] ✅ Conexão estabelecida com sucesso!
+ LOG  [INFO] Baixando Categorias TV Ao Vivo...
+ LOG  API URL: http://megga.hubns.top/player_api.php?username=732333856749&password=210225713027&action=get_live_categories
+ LOG  [SUCCESS] ✅ Categorias TV Ao Vivo: 32 itens
+ LOG  [INFO] Baixando Canais TV Ao Vivo...
+ LOG  Arquivo salvo com sucesso em: file:///data/user/0/com.anonymous.asiptv/files/iptv_liveCategories.json
+ LOG  API URL: http://megga.hubns.top/player_api.php?username=732333856749&password=210225713027&action=get_live_streams
+ LOG  [SUCCESS] ✅ Canais TV Ao Vivo: 1407 itens
+ LOG  [INFO] Baixando Categorias de Filmes...
+ LOG  Arquivo salvo com sucesso em: file:///data/user/0/com.anonymous.asiptv/files/iptv_liveStreams.json
+ LOG  API URL: http://megga.hubns.top/player_api.php?username=732333856749&password=210225713027&action=get_vod_categories
+ LOG  [SUCCESS] ✅ Categorias de Filmes: 69 itens
+ LOG  [INFO] Baixando Filmes (VOD)...
+ LOG  Arquivo salvo com sucesso em: file:///data/user/0/com.anonymous.asiptv/files/iptv_vodCategories.json
+ LOG  API URL: http://megga.hubns.top/player_api.php?username=732333856749&password=210225713027&action=get_vod_streams
+ LOG  [SUCCESS] ✅ Filmes (VOD): 52897 itens
+ LOG  [INFO] Baixando Categorias de Séries...
+ LOG  API URL: http://megga.hubns.top/player_api.php?username=732333856749&password=210225713027&action=get_series_categories
+ LOG  [SUCCESS] ✅ Categorias de Séries: 69 itens
+ LOG  [INFO] Baixando Séries...
+ LOG  API URL: http://megga.hubns.top/player_api.php?username=732333856749&password=210225713027&action=get_series
+ LOG  [SUCCESS] ✅ Séries: 21102 itens
+ LOG  [INFO] Baixando Guia de Programação...
+ LOG  API URL: http://megga.hubns.top/player_api.php?username=732333856749&password=210225713027&action=get_epg
+ LOG  [SUCCESS] ✅ Guia de Programação: 0 itens
+ LOG  [SUCCESS] 🎉 Todos os dados foram carregados com sucesso!
