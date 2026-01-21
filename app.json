@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "As Iptv",
+    "name": "as-iptv",
     "slug": "as-iptv",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -24,7 +24,7 @@
       ],
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.adrianosena.dev.br.asiptv"
+      "package": "com.anonymous.asiptv"
       
     },
     "web": {

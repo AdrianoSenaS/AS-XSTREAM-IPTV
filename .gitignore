@@ -8,11 +8,11 @@ pnpm-debug.log*
 lerna-debug.log*
 
 android/*
-node_modules
+node_modules/*
 dist
 dist-ssr
 *.local
-.expo
+*.expo
 package-lock.json
 
 # Editor directories and files
